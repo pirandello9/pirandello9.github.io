@@ -16,15 +16,15 @@
     </style>
   </head>
   <body>
+    <iframe id="outerFrame">
+    </iframe>
     <script type="text/javascript">
+      // Set iframe's url dynamically in order to pass along any given params to it
       var loc = window.location.toString(),
           params = loc.split('?')[1],
-          iframe = document.getElementById('outerFrame');
-      iframe.src = iframe.src + '?' + params;
-      alert("params = " + params);
+          iframe = document.getElementById('outerFrame'),
+          url = 'https://script.google.com/macros/s/AKfycbwAN-d88IGiGX6t7ddHp2pidzzfco6JjWKawzp-hAhrEHwxMI5J/exec';
+      iframe.src = url + '?' + params;
     </script>
-    <iframe id="outerFrame"
-      src="https://script.google.com/macros/s/AKfycbwAN-d88IGiGX6t7ddHp2pidzzfco6JjWKawzp-hAhrEHwxMI5J/exec">
-    </iframe>
   </body>
 </html>
