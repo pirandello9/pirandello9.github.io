@@ -19,7 +19,7 @@
     <script type="text/javascript">
       var loc = window.location.toString(),
           params = loc.split('?')[1],
-          iframe = document.getElementById('myIframe');
+          iframe = document.getElementById('outerFrame');
       iframe.src = iframe.src + '?' + params;
       alert("params = " + params);
     </script>
