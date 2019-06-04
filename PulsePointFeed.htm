@@ -19,22 +19,22 @@
   
   <body onload="init()">
     
-    <div class="Left">
-      <form onSubmit="return unitInput_changed(document.getElementById('unitInput'), true)">
-        <h1 style="margin-top: 0;">
-          <span style="color: #777777;">Current unit:</span>
-          <input id="unitInput" type="text" name="Unit" size="4"
-            value=""
-            onClick="unitInput_selectNumber(this)"
-            onKeyDown="unitInput_changed(this)"
-            onKeyUp="unitInput_changed(this)"
-            style="margin-left: 0.3em;" />
-        </h1>
-      </form>
-    </div>
-    <div class="Right">
-      Last refreshed <span id="refreshed">never</span>
-      <a class="RefreshButton" href="javascript:refreshData();"><img src="RefreshButton.gif" /></a>
+    <div class="LeftRight">
+      <div>
+          <h1 style="margin-top: 0;">
+            <span style="color: #777777;">Current unit:</span>
+            <input id="unitInput" type="text" name="Unit" size="4"
+              value=""
+              onClick="unitInput_selectNumber(this)"
+              onKeyDown="unitInput_changed(this)"
+              onKeyUp="unitInput_changed(this)"
+              style="margin-left: 0.3em;" />
+          </h1>
+      </div>
+      <div class="Deemphasize" style="padding-top: 0.3em;">
+        Last refreshed <span id="refreshed">never</span>
+        <a href="javascript:refreshData();"><img class="RefreshButton" src="RefreshButton.gif" /></a>
+      </div>
     </div>
     
     <hr style="margin-top: 1em;" />
@@ -42,7 +42,7 @@
     <div class="Call CurrCall">
       <div class="LeftRight Deemphasize">
         <div>Structure Fire (1A) – CMD12</div>
-        <div><span class="relTime"><1 min</span> ago</div>
+        <div><span class="relTime"><1 min</span></div>
       </div>
       <div class="Units"><strong>B1, B5, E1, <span class="CurrUnit">E23</span>, E34, T1, U34A, U34B</strong> (5’s)</div>
       <a class="LeftLeft" href="">
@@ -54,7 +54,7 @@
     <div class="Call">
       <div class="LeftRight Deemphasize">
         <div class="Type">Medical</div>
-        <div><span class="relTime">2 min</span> ago</div>
+        <div><span class="relTime">2 min</span></div>
       </div>
       <div class="Units"><strong><span class="CurrUnit">E23</span>, S5</strong></div>
       <a class="LeftLeft" href="">
@@ -65,8 +65,8 @@
     
     <div class="Call">
       <div class="LeftRight Deemphasize">
-        <div class="Type">Alarm [deemph size/vert fixed]</div>
-        <div><span class="relTime">5 min</span> ago</div>
+        <div class="Type">Alarm [deemph size/vert fixed #3]</div>
+        <div><span class="relTime">5 min</span></div>
       </div>
       <div class="Units"><strong>E34</strong></div>
       <a class="LeftLeft" href="">
