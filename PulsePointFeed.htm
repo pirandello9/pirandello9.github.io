@@ -25,6 +25,16 @@
           iframe = document.getElementById('outerFrame'),
           url = 'https://script.google.com/macros/s/AKfycbwAN-d88IGiGX6t7ddHp2pidzzfco6JjWKawzp-hAhrEHwxMI5J/exec';
       iframe.src = url + '?' + params;
+      
+      function reqListener()
+      {
+        console.log(this.responseText);
+      }
+
+      var oReq = new XMLHttpRequest();
+      oReq.addEventListener("load", reqListener);
+      oReq.open("GET", "https://web.pulsepoint.org/DB/giba.php?agency_id=43070");
+      oReq.send();
     </script>
   </body>
 </html>
