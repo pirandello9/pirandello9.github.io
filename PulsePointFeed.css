@@ -36,17 +36,30 @@ div.Call {
 }
 
 
-div.LeftRight div:first-child {
+.LeftLeft {
+  display: flex;
+  flex-wrap: wrap;
+}
+.LeftLeft div:first-child {
   clear: both;
   float: left;
 }
-div.LeftRight div:nth-child(2) {
+.LeftLeft div:nth-child(2) {
+  overflow: hidden;
+}
+.LeftRight div:first-child {
+  clear: both;
+  float: left;
+}
+.LeftRight div:nth-child(2) {
   overflow: hidden;
   text-align: right;
 }
-div.LeftRight + div {
+.LeftLeft + *,
+.LeftRight + * {
   clear: both;
 }
+
 
 div.Deemphasize {
   color: #707070;
@@ -73,6 +86,9 @@ div.Units {
   padding-left: 0.1em;
   padding-right: 0.1em;
 }
+
+
+
 
 
 
