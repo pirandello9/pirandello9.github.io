@@ -30,18 +30,23 @@ a {
   height: 1.6em;
 }
 
+hr.Spacer {
+  margin-top: 0.4em;
+  margin-bottom: 0.4em;
+}
+
 div.Call {
   padding-left:   0.5em;
   padding-right:  0.5em;
   padding-top:    0.6em;
   padding-bottom: 0.7em;
-  margin-bottom:  1em;
+  //margin-bottom:  1em;
 }
 
 div.Deemphasize {
   color: #707070;
-  font-size: 98%;
-  vertical-align: baseline;
+  //font-size: 98%;
+  //vertical-align: baseline;
 }
 
 div.Units {
@@ -53,6 +58,8 @@ div.Units {
   background-color: #DDFF99;
   -moz-border-radius: 0.6em;
   -webkit-border-radius: 0.6em;
+  margin-top: 0.6em;
+  margin-bottom: 0.7em;
 }
 
 .CurrUnit {

@@ -17,7 +17,71 @@ function init()
     document.getElementById("unitInput").value = gStrCurrentUnit;
   
   updateTimes();
-  setInterval(updateTimes, 1000);
+  setInterval(updateTimes, 10000);  // once every 10 secs
+  
+  refreshData();
+  
+
+  return;
+  
+  
+  ///////////////////////////////////////////
+  console.log("Requesting pulsepoint data...");
+  
+  var oReq = new XMLHttpRequest();
+  oReq.addEventListener("load", reqListener);
+  oReq.open("GET", "https://script.google.com/macros/s/AKfycbwAN-d88IGiGX6t7ddHp2pidzzfco6JjWKawzp-hAhrEHwxMI5J/exec");
+  oReq.send();
+}
+
+
+function updateTimes()
+{
+  var dateTimeCurr = new Date();
+  
+  
+}
+
+
+function updatePage(arrActiveIncs)
+{
+  
+  
+  
+  for (var i = 0; i < arrActiveIncs.length; i++)
+  {
+    //var eltTR = document.createElement("tr");
+    //var eltTD = document.createElement("td");
+    
+  }
+  
+  
+  //var strLocale = 'en-US';
+  //var options = { timeZone:'America/Los_Angeles' };
+  var now = new Date();
+  //var options = {month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: 'true'};
+  var options = {hour: 'numeric', minute: '2-digit', hour12: 'true'};
+  var strDateTime = now.toLocaleTimeString("en-US", options);
+  strDateTime = strDateTime.replace(/ \b([AP]M)\b/i, "$1").toLowerCase();
+  //strDateTime = strDateTime.replace(/,/g, "");
+  
+  var eltRefreshedTime = document.getElementById("refreshed");
+  eltRefreshedTime.innerText = strDateTime;
+}
+
+
+function refreshData()
+{
+  animateRefresh(true);
+  
+  //############### FOR TESTING... ###################
+  setTimeout(onDataReceived, 2500);
+}
+
+
+function onDataReceived()
+{
+  animateRefresh(false);
   
   //############### FOR TESTING... ###################
   var arrActiveIncs =
@@ -75,24 +139,15 @@ function init()
   ];
   
   updatePage(arrActiveIncs);
-  return;
-  
-  
-  ///////////////////////////////////////////
-  console.log("Requesting pulsepoint data...");
-  
-  var oReq = new XMLHttpRequest();
-  oReq.addEventListener("load", reqListener);
-  oReq.open("GET", "https://script.google.com/macros/s/AKfycbwAN-d88IGiGX6t7ddHp2pidzzfco6JjWKawzp-hAhrEHwxMI5J/exec");
-  oReq.send();
 }
 
 
-function updateTimes()
+function animateRefresh(bOn)
 {
-  var dateTimeCurr = new Date();
+  const kstrRefreshStaticImg = "RefreshButton.gif";
+  const kstrRefreshAnimImg = "RefreshAnim.gif";
   
-  
+  document.getElementById("RefreshButton").src = (bOn? kstrRefreshAnimImg : kstrRefreshStaticImg);
 }
 
 
@@ -124,29 +179,6 @@ function unitInput_changed(eltUnitInput, bDone)
   return false; // prevent default handling of event
 }
 
-
-function updatePage(arrActiveIncs)
-{
-  for (var i = 0; i < arrActiveIncs.length; i++)
-  {
-    //var eltTR = document.createElement("tr");
-    //var eltTD = document.createElement("td");
-    
-  }
-  
-  
-  //var strLocale = 'en-US';
-  //var options = { timeZone:'America/Los_Angeles' };
-  var now = new Date();
-  //var options = {month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: 'true'};
-  var options = {hour: 'numeric', minute: '2-digit', hour12: 'true'};
-  var strDateTime = now.toLocaleTimeString("en-US", options);
-  strDateTime = strDateTime.replace(/ \b([AP]M)\b/i, "$1").toLowerCase();
-  //strDateTime = strDateTime.replace(/,/g, "");
-  
-  var eltRefreshedTime = document.getElementById("refreshed");
-  eltRefreshedTime.innerText = strDateTime;
-}
 
 
 //function updateAssignedTimeIndicators(dateTimeCurr)
