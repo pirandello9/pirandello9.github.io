@@ -35,22 +35,22 @@ div.Call {
   margin-bottom:  0.5em;
 }
 
-div.Call div:first-child {
+
+div.LeftRight div:first-child {
   clear: both;
   float: left;
 }
-div.Call div:nth-child(2) {
+div.LeftRight div:nth-child(2) {
   overflow: hidden;
   text-align: right;
 }
-div.Call div:nth-child(3) {
+div.LeftRight + div {
   clear: both;
 }
 
-
-div.CallType {
-  color: #777777;
-  font-size: 92%;
+div.Deemphasize {
+  color: #707070;
+  font-size: 94%;
 }
 
 div.Units {
@@ -66,7 +66,8 @@ div.Units {
 }
 
 .CurrUnit {
-  background-color: #DDDDFF;
+  //background-color: #DDDDFF;
+  color: red;
   -moz-border-radius: 0.4em;
   -webkit-border-radius: 0.4em;
   padding-left: 0.1em;
