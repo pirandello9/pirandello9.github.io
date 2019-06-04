@@ -60,7 +60,9 @@ div.Call {
 
 div.Deemphasize {
   color: #707070;
-  font-size: 94%;
+  font-size: 96%;
+  margin-top: 0.04em;
+  vertical-align: baseline;
 }
 
 div.Units {
