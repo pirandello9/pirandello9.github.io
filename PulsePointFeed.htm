@@ -1,43 +1,56 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>PulsePointFeed</title>
+    
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <style type="text/css">
-      #outerFrame {
-        width: 100%;
-        height: 95%;
-        border: 0;
-        margin: 0;
-        padding: 0;
-        overflow: auto;
-      }
-    </style>
+    
+    <script type="text/javascript" src="PulsePointFeed.js"></script>
+    <link href="PulsePointFeed.css" rel="stylesheet" type="text/css" media="all" />
   </head>
-  <body>
-    <iframe id="outerFrame">
-    </iframe>
-    <script type="text/javascript">
-      // Set iframe's url dynamically in order to pass along any given params to it
-      var loc = window.location.toString(),
-          params = loc.split('?')[1],
-          iframe = document.getElementById('outerFrame'),
-          url = 'https://script.google.com/macros/s/AKfycbwAN-d88IGiGX6t7ddHp2pidzzfco6JjWKawzp-hAhrEHwxMI5J/exec';
-      iframe.src = url + '?' + params;
-      
-      function reqListener()
-      {
-        console.log(this.responseText);
-      }
-
-      var oReq = new XMLHttpRequest();
-      //oReq.open("GET", "https://web.pulsepoint.org/DB/giba.php?agency_id=43070");
-      oReq.open("GET", "https://script.google.com/macros/s/AKfycbwAN-d88IGiGX6t7ddHp2pidzzfco6JjWKawzp-hAhrEHwxMI5J/exec");
-      //oReq.setRequestHeader("accept", "*/*");
-      //oReq.setRequestHeader("referer", "https://web.pulsepoint.org/");
-      oReq.addEventListener("load", reqListener);
-      oReq.send();
-    </script>
+  
+  <body onload="init()">
+    
+    <table width="96%">
+      <tr>
+        <td>
+          <form onSubmit="return unitInput_changed(document.getElementById('unitInput'), true)">
+            <h1>
+              <span style="color: #777777;">Current unit:</span>
+              <input id="unitInput" type="text" name="Unit" size="1"
+                value=""
+                onClick="unitInput_selectNumber(this)"
+                onKeyDown="unitInput_changed(this)"
+                onKeyUp="unitInput_changed(this)"
+                style="margin-left: 0.3em;" />
+            </h1>
+          </form>
+        </td>
+        <td align="right" style="padding-top: 0.8em;">
+          <div>
+            Last refreshed <span id="refreshed">never</span>
+            <a class="RefreshButton" href="javascript:refreshData();">🔃</a>
+          </div>
+        </td>
+      </tr>
+    </table>
+    
+    <hr style="margin-top: 1em;" />
+    
+    <table class="Calls">
+      <tr>
+        <td><div class="Units"><strong>E1, S5</strong> (5’s)</div>Structure Fire (1A)</td>
+        <td style="vertical-align: middle;"><a href="">Story Rd & Hopkins Dr</a><br />(Golden Wheel MHP)</td>
+        <td align="right" style="vertical-align: middle;"><span class="relTime">1:02</span> ago</td>
+      </tr>
+      <tr class="Current">
+        <td><div class="Units"><strong>E23</strong></div>Medical</td>
+        <td style="vertical-align: middle;"><a href="">Flickinger Park Playground</a><br />(public)</td>
+        <td align="right" style="vertical-align: middle;"><span class="relTime">2:15</span> ago</td>
+      </tr>
+    </table>
+    
   </body>
 </html>

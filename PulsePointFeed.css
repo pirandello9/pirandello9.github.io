@@ -1,0 +1,171 @@
+
+html, body {
+  overflow: auto;
+  font: normal 12px tahoma, arial, verdana, sans-serif;
+  font-size: 100%;
+  margin-left: 0.5em;
+  padding: 0;
+  border: 0 none;
+}
+
+h1, h1 input {
+  font-size: 110%;
+  font-weight: bold;
+}
+h2, h3 {
+  font-size: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+table {
+  border-collapse: collapse;
+}
+td {
+  vertical-align: middle;
+  padding-left:  0.3em;
+  padding-right: 0.3em;
+}
+
+
+.RefreshedNote {
+  font-size: 85%;
+  font-style: italic;
+  color: #888888;
+  margin-bottom: 2em;
+}
+
+h1.ShiftDate {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+table.Calls {
+  width: 98%;
+  margin-left: 0;
+  border: 0 none;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+table.Calls td {
+  padding-left:   0.3em;
+  padding-right:  0.3em;
+  padding-top:    0.7em;
+  padding-bottom: 0.8em;
+}
+table.Calls td:first-child {
+  padding-left:   0.8em;
+}
+table.Calls td:last-child {
+  padding-right:  0.8em;
+}
+
+table.Calls td:nth-child(2),
+table.Calls td:nth-child(3) {
+  padding-left: 0.3em;
+}
+table.Calls tr.Current,
+table.Calls tr.Current a {
+  //color: #999999;
+  //color: #BBBBBB;
+  //background-color: #F2F2FF;
+  background-color: #DDFF99;
+}
+table.Calls tr.Current td:first-child {
+  -moz-border-radius-topleft: 0.6em;
+  -moz-border-radius-bottomleft: 0.6em;
+  -webkit-border-top-left-radius: 0.6em;
+  -webkit-border-bottom-left-radius: 0.6em;
+}
+table.Calls tr.Current td:last-child {
+  padding-right: 0.9em;
+  -moz-border-radius-topright: 0.6em;
+  -moz-border-radius-bottomright: 0.6em;
+  -webkit-border-top-right-radius: 0.6em;
+  -webkit-border-bottom-right-radius: 0.6em;
+}
+table.Calls tr.Past,
+table.Calls tr.Past a {
+  color: #999999;
+  //color: #BBBBBB;
+}
+
+
+div.Units {
+  padding-bottom: 0.3em;
+}
+
+.Station {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+.Station a {
+  color: black;
+}
+
+
+a.DateChangeButton,
+a.RefreshButton {
+  text-decoration: none;
+  font-style: normal;
+  font-size: 120%;
+  vertical-align: baseline;
+  color: inherit;
+  padding-left: 0.1em;
+  padding-right: 0.1em;
+}
+
+
+table.StationTable td:first-child {
+  border-left: 1px solid #DDDDDD;
+}
+table.StationTable td:last-child {
+  border-right: 1px solid #DDDDDD;
+}
+table.StationTable tr.RankStart td {
+  border-top: 1px solid #DDDDDD;
+  padding-top: 0.1em;
+}
+table.StationTable tr.RankEnd td {
+  border-bottom: 1px solid #DDDDDD;
+  padding-bottom: 0.2em;
+}
+table.StationTable tr.Unit td {
+  border: 0 none;
+  font-weight: bold;
+  padding-top: 0.6em;
+  padding-bottom: 0.2em;
+  //padding-left: 0;
+}
+table.StationTable tr.Unit a {
+  color: black;
+}
+table.StationTable tr.MyName {
+  color: #5588BB;
+}
+table.StationTable tr.Past,
+table.StationTable tr.Past a,
+table.StationTable tr.Future,
+table.StationTable tr.Future a {
+  color: #999999;
+  //color: #BBBBBB;
+}
+table.StationTable tr.MyName.Current,
+table.StationTable tr.MyName.Current a {
+  color: #4466BB;
+  background-color: #DDFF99;
+}
+table.StationTable tr.MyName.Current td:first-child {
+  -moz-border-radius-topleft: 0.8em;
+  -moz-border-radius-bottomleft: 0.8em;
+  -webkit-border-top-left-radius: 0.8em;
+  -webkit-border-bottom-left-radius: 0.8em;
+}
+table.StationTable tr.MyName.Current td:last-child {
+  -moz-border-radius-topright: 0.8em;
+  -moz-border-radius-bottomright: 0.8em;
+  -webkit-border-top-right-radius: 0.8em;
+  -webkit-border-bottom-right-radius: 0.8em;
+}
