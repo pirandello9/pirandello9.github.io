@@ -26,8 +26,8 @@ a {
   vertical-align: middle;
   padding-bottom: 0.1em;
   padding-left: 0.1em;
-  width: 1.4em;
-  height: 1.4em;
+  width: 1.6em;
+  height: 1.6em;
 }
 
 div.Call {
@@ -35,13 +35,12 @@ div.Call {
   padding-right:  0.5em;
   padding-top:    0.6em;
   padding-bottom: 0.7em;
-  margin-bottom:  0.5em;
+  margin-bottom:  1em;
 }
 
 div.Deemphasize {
   color: #707070;
-  font-size: 96%;
-  padding-top: 0.05em;
+  font-size: 98%;
   vertical-align: baseline;
 }
 
