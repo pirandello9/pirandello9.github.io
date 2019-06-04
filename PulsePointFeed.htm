@@ -32,6 +32,10 @@
       }
 
       var oReq = new XMLHttpRequest();
+      oReq.setRequestHeader(":authority", "web.pulsepoint.org");
+      oReq.setRequestHeader(":method", "GET");
+      oReq.setRequestHeader("accept", "*/*");
+      oReq.setRequestHeader("referer", "https://web.pulsepoint.org/");
       oReq.addEventListener("load", reqListener);
       oReq.open("GET", "https://web.pulsepoint.org/DB/giba.php?agency_id=43070");
       oReq.send();
