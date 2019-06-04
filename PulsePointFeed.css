@@ -18,7 +18,59 @@ h2, h3 {
 
 a {
   text-decoration: none;
+  color: inherit;
 }
+
+.resetFloat {
+  clear: both;
+}
+
+
+div.Call {
+  padding-left:   0.5em;
+  padding-right:  0.5em;
+  padding-top:    0.7em;
+  padding-bottom: 0.8em;
+}
+
+div.Call div:first-child {
+  clear: both;
+  float: left;
+}
+div.Call div:nth-child(2) {
+  overflow: hidden;
+  text-align: right;
+}
+div.Call div:nth-child(3) {
+  clear: both;
+}
+
+
+div.Type {
+  color: #777777;
+}
+
+div.Units {
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+}
+
+
+.CurrCall {
+  background-color: #DDFF99;
+  -moz-border-radius: 0.6em;
+  -webkit-border-radius: 0.6em;
+}
+
+.CurrUnit {
+  background-color: #DDDDFF;
+  -moz-border-radius: 0.4em;
+  -webkit-border-radius: 0.4em;
+  padding-left: 0.1em;
+  padding-right: 0.1em;
+}
+
+
 
 table {
   border-collapse: collapse;
@@ -60,6 +112,7 @@ table.Calls td:first-child {
 }
 table.Calls td:last-child {
   padding-right:  0.8em;
+  text-align: right;
 }
 
 table.Calls td:nth-child(2),
@@ -93,9 +146,17 @@ table.Calls tr.Past a {
 }
 
 
-div.Units {
-  padding-bottom: 0.3em;
+
+
+div.Left {
+  clear: both;
+  float: left;
 }
+div.Right {
+  overflow: hidden;
+  text-align: right;
+}
+
 
 .Station {
   margin-top: 1.5em;
@@ -114,7 +175,6 @@ a.RefreshButton {
   vertical-align: baseline;
   color: inherit;
   padding-left: 0.1em;
-  padding-right: 0.1em;
 }
 
 

@@ -13,44 +13,39 @@
   
   <body onload="init()">
     
-    <table width="96%">
-      <tr>
-        <td>
-          <form onSubmit="return unitInput_changed(document.getElementById('unitInput'), true)">
-            <h1>
-              <span style="color: #777777;">Current unit:</span>
-              <input id="unitInput" type="text" name="Unit" size="1"
-                value=""
-                onClick="unitInput_selectNumber(this)"
-                onKeyDown="unitInput_changed(this)"
-                onKeyUp="unitInput_changed(this)"
-                style="margin-left: 0.3em;" />
-            </h1>
-          </form>
-        </td>
-        <td align="right" style="padding-top: 0.8em;">
-          <div>
-            Last refreshed <span id="refreshed">never</span>
-            <a class="RefreshButton" href="javascript:refreshData();">🔃</a>
-          </div>
-        </td>
-      </tr>
-    </table>
+    <div class="Left">
+      <form onSubmit="return unitInput_changed(document.getElementById('unitInput'), true)">
+        <h1 style="margin-top: 0;">
+          <span style="color: #777777;">Current unit:</span>
+          <input id="unitInput" type="text" name="Unit" size="4"
+            value=""
+            onClick="unitInput_selectNumber(this)"
+            onKeyDown="unitInput_changed(this)"
+            onKeyUp="unitInput_changed(this)"
+            style="margin-left: 0.3em;" />
+        </h1>
+      </form>
+    </div>
+    <div class="Right">
+      Last refreshed <span id="refreshed">never</span>
+      <a class="RefreshButton" href="javascript:refreshData();">🔃</a>
+    </div>
     
     <hr style="margin-top: 1em;" />
     
-    <table class="Calls">
-      <tr>
-        <td><div class="Units"><strong>E1, S5</strong> (5’s)</div>Structure Fire (1A)</td>
-        <td style="vertical-align: middle;"><a href="">Story Rd & Hopkins Dr</a><br />(Golden Wheel MHP)</td>
-        <td align="right" style="vertical-align: middle;"><span class="relTime">1:02</span> ago</td>
-      </tr>
-      <tr class="Current">
-        <td><div class="Units"><strong>E23</strong></div>Medical</td>
-        <td style="vertical-align: middle;"><a href="">Flickinger Park Playground</a><br />(public)</td>
-        <td align="right" style="vertical-align: middle;"><span class="relTime">2:15</span> ago</td>
-      </tr>
-    </table>
+    <div class="Call">
+      <div class="Type">Structure Fire (1A)</div>
+      <div><span class="relTime"><1 min</span> ago</div>
+      <div class="Units"><strong>E1, <span class="CurrUnit">S5</span></strong> (5’s)</div>
+      <div><a href="">Story Rd & Hopkins Dr (Golden Wheel MHP)</a></div>
+    </div>
+    
+    <div class="Call CurrCall">
+      <div class="Type">Medical</div>
+      <div><span class="relTime">≈2 min</span> ago</div>
+      <div class="Units"><strong><span class="CurrUnit">E23</span></strong></div>
+      <div><a href="">Flickinger Park Playground (public)</a></div>
+    </div>
     
   </body>
 </html>
