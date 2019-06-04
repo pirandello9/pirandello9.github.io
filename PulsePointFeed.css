@@ -3,7 +3,7 @@ html, body {
   overflow: auto;
   font-style: normal;
   font-family: tahoma, arial, verdana, sans-serif;
-  font-size: 100%;
+  //font-size: 100%;
   margin-left: 0.5em;
   padding: 0;
   border: 0 none;
@@ -48,8 +48,9 @@ div.Call div:nth-child(3) {
 }
 
 
-div.Type {
+div.CallType {
   color: #777777;
+  font-size: 92%;
 }
 
 div.Units {
