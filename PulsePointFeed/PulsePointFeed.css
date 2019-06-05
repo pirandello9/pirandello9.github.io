@@ -81,7 +81,8 @@ span.Units {
 
 .CurrUnit {
   //background-color: #DDDDFF;
-  color: red;
+  //color: red;
+  color: #FF6600;
   -moz-border-radius: 0.4em;
   -webkit-border-radius: 0.4em;
   padding-left: 0.1em;
