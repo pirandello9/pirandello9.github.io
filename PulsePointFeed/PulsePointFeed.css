@@ -33,10 +33,15 @@ a {
 .CallTypeIcon {
   vertical-align: middle;
   padding-right: 0.1em;
-  padding-bottom: 0.1em;
+  //padding-bottom: 0.1em;
   width: 1.6em;
   height: 1.6em;
 }
+
+.RelTime {
+  //padding-top: 0.1em;
+}
+
 
 hr.Spacer {
   margin-top: 0.4em;

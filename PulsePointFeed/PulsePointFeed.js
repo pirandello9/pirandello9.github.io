@@ -45,9 +45,13 @@ function updateTimes()
     var eltRelTime = arrRelTimes[i];
     var strRelTime;
     var nDiffMilliSecs = (now - eltRelTime.callTime);
-    var fDiffMins = ((nDiffMilliSecs % 86400000) % 3600000) / 60000;
+    var fDiffMins = nDiffMilliSecs / 60000;
     if (fDiffMins < 1.0)
       strRelTime = "<1m";
+    else if (fDiffMins > 1440.0)
+      strRelTime = Math.round(fDiffMins / 1440.0) + "d";
+    else if (fDiffMins > 99.0)
+      strRelTime = Math.round(fDiffMins / 60.0) + "h";
     else
       strRelTime = Math.round(fDiffMins) + "m";
     
