@@ -142,17 +142,17 @@ function updatePage(bRefreshed)
     addDiv(divCall, "UnitsEtc", strUnitsEtc);
     
     var linkAddress = document.createElement("a");
-    linkAddress.className = "LeftLeft";
+    linkAddress.className = "Address LeftLeft";
     linkAddress.href = strMapAddressUrl;
     linkAddress.target = "_blank";
     divCall.appendChild(linkAddress);
     if (objIncident.placeName || objIncident.public)
     {
-      addDiv(linkAddress, "Address", objIncident.address + "&nbsp;");
-      addDiv(linkAddress, "Address", "(" + (objIncident.placeName || "public") + ")");
+      addDiv(linkAddress, null, objIncident.address + "&nbsp;");
+      addDiv(linkAddress, null, "(" + (objIncident.placeName || "public") + ")");
     }
     else
-      addDiv(linkAddress, "Address", objIncident.address);
+      addDiv(linkAddress, null, objIncident.address);
     
     var hr = document.createElement("hr");
     hr.className = "Spacer";

@@ -88,9 +88,11 @@ span.Units {
   font-weight: bold;
 }
 
-div.Address {
+a.Address {
+  color: blue;
   font-size: 110%;
 }
+
 
 .CurrCall {
   background-color: #DDFF99;
