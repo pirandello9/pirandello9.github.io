@@ -148,11 +148,11 @@ function updatePage(bRefreshed)
     divCall.appendChild(linkAddress);
     if (objIncident.placeName || objIncident.public)
     {
-      addDiv(linkAddress, null, objIncident.address + "&nbsp;");
-      addDiv(linkAddress, null, "(" + (objIncident.placeName || "public") + ")");
+      addDiv(linkAddress, "Address", objIncident.address + "&nbsp;");
+      addDiv(linkAddress, "Address", "(" + (objIncident.placeName || "public") + ")");
     }
     else
-      addDiv(linkAddress, null, objIncident.address);
+      addDiv(linkAddress, "Address", objIncident.address);
     
     var hr = document.createElement("hr");
     hr.className = "Spacer";

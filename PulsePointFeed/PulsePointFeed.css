@@ -88,6 +88,10 @@ span.Units {
   font-weight: bold;
 }
 
+div.Address {
+  font-size: 110%;
+}
+
 .CurrCall {
   background-color: #DDFF99;
   -moz-border-radius: 0.6em;
