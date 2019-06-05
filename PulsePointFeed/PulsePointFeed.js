@@ -5,11 +5,6 @@ var gStrLastJson = "";
 var gArrActiveIncs = [];
 
 
-function reqListener()
-{
-  console.log(this.responseText);
-}
-
 
 function init()
 {
@@ -21,18 +16,6 @@ function init()
   setInterval(updateTimes, 10000);  // once every 10 secs
   
   refreshData();
-  
-
-  return;
-  
-  
-  ///////////////////////////////////////////
-  console.log("Requesting pulsepoint data...");
-  
-  var oReq = new XMLHttpRequest();
-  oReq.addEventListener("load", reqListener);
-  oReq.open("GET", "https://script.google.com/macros/s/AKfycbwAN-d88IGiGX6t7ddHp2pidzzfco6JjWKawzp-hAhrEHwxMI5J/exec");
-  oReq.send();
 }
 
 
@@ -121,7 +104,7 @@ function updatePage(bRefreshed)
       strUnitsEtc = strUnitsEtc.replace(new RegExp("\\b" + strCurrUnit + "\\b"), strEmphasizedUnit);
     }
     if (objIncident.firstDue)
-      strUnitsEtc += " (" + objIncident.firstDue + "’s)";
+      strUnitsEtc += " (" + objIncident.firstDue + "&rsquo;s)";
     
     var strMapAddressUrl = kStrDirectionsUrl.replace("%s", objIncident.latlong);
     
@@ -194,9 +177,91 @@ function addDiv(appendInElt, strClasses, strText)
 function refreshData()
 {
   animateRefresh(true);
+  console.log("Requesting pulsepoint data...");
+  
+  
+  var TESTING = false;
   
   //############### FOR TESTING... ###################
-  setTimeout(onDataReceived, 500);
+  if (TESTING)
+  {
+    var arrActiveIncs =
+      [
+        {
+          "time": "2019-06-04T04:22:30Z",
+          "type": "ME",
+          "typeName": "Medical",
+          "latlong": "37.3701980556,-121.8429499722",
+          "address": "McKee Rd",
+          "public": true,
+          "units": [
+            "E2"
+          ]
+        },
+        {
+          "time": "2019-06-04T04:17:30Z",
+          "type": "PS",
+          "typeName": "Public Service",
+          "latlong": "37.3436547778,-121.8375635556",
+          "address": "Story Rd & Hopkins Dr",
+          "public": true,
+          "units": [
+            "E16",
+            "T16"
+          ]
+        },
+        {
+          "time": "2019-06-04T04:15:27Z",
+          "type": "SF",
+          "typeName": "Structure Fire",
+          "alarm": "1",
+          "cmd": "CMD12",
+          "latlong": "37.2836453333,-121.7904331389",
+          "address": "Mountaire Ct",
+          "units": [
+            "B1",
+            "B5",
+            "E23",
+            "E34",
+            "T1",
+            "U34A",
+            "U34B"
+          ],
+          "firstDue": 5
+        },
+        {
+          "time": "2019-06-04T04:12:21Z",
+          "type": "CMA",
+          "typeName": "Carbon Monoxide",
+          "latlong": "37.2984915556,-121.8680324167",
+          "address": "213 Azevedo Cir",
+          "placeName": "Golden Wheel MHP",
+          "units": [
+            "E26"
+          ]
+        },
+        {
+          "time": "2019-06-04T04:10:35Z",
+          "type": "ME",
+          "typeName": "Medical",
+          "latlong": "37.2299803611,-121.8684615556",
+          "address": "Fleetwood Dr",
+          "firstDue": "22",
+          "units": [
+            "E17"
+          ]
+        }
+      ];
+    
+    onDataReceived(JSON.stringify(arrActiveIncs));
+  }
+  else
+  {
+    var objReq = new XMLHttpRequest();
+    objReq.addEventListener("load", onDataReceived);
+    objReq.open("GET", "https://script.google.com/macros/s/AKfycbwAN-d88IGiGX6t7ddHp2pidzzfco6JjWKawzp-hAhrEHwxMI5J/exec");
+    objReq.send();
+  }
 }
 
 
@@ -204,76 +269,24 @@ function onDataReceived()
 {
   animateRefresh(false);
   
-  //############### FOR TESTING... ###################
-  gArrActiveIncs =
-  [
-    {
-      "time": "2019-06-04T04:22:30Z",
-      "type": "ME",
-      "typeName": "Medical",
-      "latlong": "37.3701980556,-121.8429499722",
-      "address": "McKee Rd",
-      "public": true,
-      "units": [
-        "E2"
-      ]
-    },
-    {
-      "time": "2019-06-04T04:17:30Z",
-      "type": "PS",
-      "typeName": "Public Service",
-      "latlong": "37.3436547778,-121.8375635556",
-      "address": "Story Rd & Hopkins Dr",
-      "public": true,
-      "units": [
-        "E16",
-        "T16"
-      ]
-    },
-    {
-      "time": "2019-06-04T04:15:27Z",
-      "type": "SF",
-      "typeName": "Structure Fire",
-      "alarm": "1",
-      "cmd": "CMD12",
-      "latlong": "37.2836453333,-121.7904331389",
-      "address": "Mountaire Ct",
-      "units": [
-        "B1",
-        "B5",
-        "E23",
-        "E34",
-        "T1",
-        "U34A",
-        "U34B"
-      ],
-      "firstDue": 5
-    },
-    {
-      "time": "2019-06-04T04:12:21Z",
-      "type": "CMA",
-      "typeName": "Carbon Monoxide",
-      "latlong": "37.2984915556,-121.8680324167",
-      "address": "213 Azevedo Cir",
-      "placeName": "Golden Wheel MHP",
-      "units": [
-        "E26"
-      ]
-    },
-    {
-      "time": "2019-06-04T04:10:35Z",
-      "type": "ME",
-      "typeName": "Medical",
-      "latlong": "37.2299803611,-121.8684615556",
-      "address": "Fleetwood Dr",
-      "firstDue": "22",
-      "units": [
-        "E17"
-      ]
-    }
-  ];
+  //var strResponseJson = this.responseText;
+  var strResponseJson = this.responseText || arguments[0];  //########### FOR TESTING
+  //console.log(strResponseJson);
   
-  updatePage(true);
+  if (strResponseJson === gStrLastJson)
+    console.log("Received same as current data from pulsepoint");
+  else
+  {
+    gStrLastJson = strResponseJson;
+    gArrActiveIncs = JSON.parse(strResponseJson);
+    
+    console.log("Received %d active calls from pulsepoint", gArrActiveIncs.length);
+    
+    
+
+    
+    updatePage(true);
+  }
 }
 
 

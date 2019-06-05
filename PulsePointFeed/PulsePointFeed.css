@@ -72,12 +72,18 @@ div.PageHeader {
 }
 
 div.Call {
-  padding-left:   0.3em;
   padding-right:  0.3em;
   padding-top:    0.4em;
   padding-bottom: 0.7em;
   //margin-bottom:  1em;
 }
+div.Call * {
+  //padding-left: 0.3em;
+}
+div.Call div:first-child {
+  //padding-left: 0;
+}
+
 
 div.UnitsEtc {
   padding-top: 0.1em;
@@ -104,8 +110,8 @@ a.Address {
 
 .CurrUnit {
   //background-color: #DDDDFF;
-  //color: red;
-  color: #FF6600;
+  color: red;
+  //color: #FF6600;
   -moz-border-radius: 0.4em;
   -webkit-border-radius: 0.4em;
   padding-left: 0.1em;
