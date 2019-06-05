@@ -291,7 +291,7 @@ function unitInput_changed(eltUnitInput, bDone)
   eltUnitInput.value = gStrCurrentUnit;
   
   localStorage.setItem("currUnit", gStrCurrentUnit);
-
+  
   if (bDone)
     eltUnitInput.blur();
   
