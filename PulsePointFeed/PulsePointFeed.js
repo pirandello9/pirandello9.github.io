@@ -15,7 +15,7 @@ function init()
 {
   gStrCurrentUnit = localStorage.getItem("currUnit");
   if (gStrCurrentUnit)
-    document.getElementById("unitInput").value = gStrCurrentUnit;
+    document.getElementById("UnitInput").value = gStrCurrentUnit;
   
   updateTimes();
   setInterval(updateTimes, 10000);  // once every 10 secs
@@ -68,7 +68,7 @@ function updatePage(bRefreshed)
 {
   const kStrDirectionsUrl = "https://www.google.com/maps/dir/?api=1&destination=%s&travelmode=driving";
 
-  var strCurrUnit = document.getElementById("unitInput").value;
+  var strCurrUnit = document.getElementById("UnitInput").value;
   var divCalls = document.getElementById("Calls");
   
   // Empty out Calls div
@@ -172,7 +172,7 @@ function updatePage(bRefreshed)
   
   if (bRefreshed)
   {
-    var eltRefreshedTime = document.getElementById("refreshed");
+    var eltRefreshedTime = document.getElementById("RefreshedTime");
     eltRefreshedTime.innerText = strDateTime;
   }
 }

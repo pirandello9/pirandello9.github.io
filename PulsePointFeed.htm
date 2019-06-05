@@ -19,21 +19,21 @@
   
   <body onload="init()">
     
-    <div class="LeftRight">
+    <div class="PageHeader LeftRight">
       <div>
           <h1 style="margin-top: 0;">
-            <span style="color: #777777;">Current unit:</span>
-            <input id="unitInput" type="text" name="Unit" size="4"
+            <span class="Deemphasize">Current unit:</span>
+            <br />
+            <input id="UnitInput" type="text" name="Unit" size="4"
               value=""
               onClick="unitInput_selectNumber(this)"
               onKeyDown="unitInput_changed(this, event)"
-              onKeyUp="unitInput_changed(this, event)"
-              style="margin-left: 0.3em;" />
+              onKeyUp="unitInput_changed(this, event)" />
           </h1>
       </div>
-      <div class="Deemphasize">
+      <div class="LastRefreshed Deemphasize">
         <a href="javascript:refreshData();">
-          Last refreshed <span id="refreshed">never</span>
+          Last refreshed <br/><span id="RefreshedTime">never</span>
           <img id="RefreshButton" class="RefreshButton" src="PulsePointFeed/RefreshButton.gif" />
         </a>
       </div>

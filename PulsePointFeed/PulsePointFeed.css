@@ -4,7 +4,6 @@ html, body {
   font-style: normal;
   font-family: tahoma, arial, verdana, sans-serif;
   font-size: 104%;
-  margin-left: 0.5em;
   padding: 0;
   border: 0 none;
 }
@@ -20,6 +19,11 @@ h2, h3 {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.LastRefreshed {
+  font-size: 96%;
+  padding-top: 0.15em;
 }
 
 .RefreshButton {
@@ -43,10 +47,29 @@ a {
   font-size: 98%;
 }
 
+.Deemphasize {
+  color: #707070;
+  //font-size: 98%;
+  //vertical-align: baseline;
+}
+
 
 hr.Spacer {
   margin-top: 0.4em;
   margin-bottom: 0.4em;
+}
+
+div.PageHeader {
+  background-color: #DDDDDD;
+  padding-left:   0.3em;
+  padding-right:  0.3em;
+  padding-top:    0.4em;
+  padding-bottom: 0.7em;
+  //margin-bottom: 1.5em;
+}
+
+#UnitInput {
+  background-color: #DDDDDD;
 }
 
 div.Call {
@@ -55,12 +78,6 @@ div.Call {
   padding-top:    0.4em;
   padding-bottom: 0.7em;
   //margin-bottom:  1em;
-}
-
-div.Deemphasize {
-  color: #707070;
-  //font-size: 98%;
-  //vertical-align: baseline;
 }
 
 div.UnitsEtc {
