@@ -288,6 +288,7 @@ function unitInput_changed(eltUnitInput, event)
   var char = event.which || event.keyCode;
   if (char === 13)
   {
+    document.activeElement.blur();
     eltUnitInput.blur();
     return;
   }
