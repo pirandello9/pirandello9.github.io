@@ -49,9 +49,13 @@ div.Deemphasize {
   //vertical-align: baseline;
 }
 
-div.Units {
+div.UnitsEtc {
   padding-top: 0.3em;
   padding-bottom: 0.3em;
+}
+
+span.Units {
+  font-weight: bold;
 }
 
 .CurrCall {

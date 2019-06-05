@@ -2,6 +2,7 @@
 // Global vars
 var gStrCurrentUnit = "";
 var gStrLastJson = "";
+var gArrActiveIncs = [];
 
 
 function reqListener()
@@ -37,24 +38,117 @@ function init()
 
 function updateTimes()
 {
-  var dateTimeCurr = new Date();
-  
-  
+  var now = new Date();
+  var arrRelTimes = document.getElementById("Calls").getElementsByClassName("RelTime");
+  for (var i = 0; i < arrRelTimes.length; i++)
+  {
+    var eltRelTime = arrRelTimes[i];
+    var strRelTime;
+    var nDiffMilliSecs = (now - eltRelTime.callTime);
+    var fDiffMins = ((nDiffMilliSecs % 86400000) % 3600000) / 60000;
+    if (fDiffMins < 1.0)
+      strRelTime = "<1m";
+    else
+      strRelTime = Math.round(fDiffMins) + "m";
+    
+    if (eltRelTime.strRelTime !== strRelTime)
+    {
+      eltRelTime.strRelTime = strRelTime;
+      eltRelTime.innerText = strRelTime;
+    }
+  }
 }
 
 
-function updatePage(arrActiveIncs)
+function updatePage()
 {
+  const kStrDirectionsUrl = "https://www.google.com/maps/dir/?api=1&destination=%s&travelmode=driving";
+
+  var strCurrUnit = document.getElementById("unitInput").value;
+  var divCalls = document.getElementById("Calls");
   
+  // Empty out Calls div
+  while (divCalls.firstChild)
+    divCalls.removeChild(divCalls.firstChild);
   
-  
-  for (var i = 0; i < arrActiveIncs.length; i++)
+  for (var i = 0; i < gArrActiveIncs.length; i++)
   {
-    //var eltTR = document.createElement("tr");
-    //var eltTD = document.createElement("td");
+    var objIncident = gArrActiveIncs[i];
     
+    //"time": "2019-06-04T04:17:30Z",
+    //"type": "Public Service",
+    //"alarm": "2"
+    //"latlong": "37.3436547778,-121.8375635556",
+    //"address": "Story Rd & Hopkins Dr",
+    //"placeName": "Golden Wheel MHP",
+    //"public": true,
+    //"units": ["E16","T16"],
+    //"firstDue": "34",
+    //"cmd": "CMD12",
+    
+    //<div class="Call CurrCall">
+    //  <div class="LeftRight">
+    //    <div class="Deemphasize">Structure Fire (1A)</div>
+    //    <div class="RelTime"><1m</div>
+    //  </div>
+    //  <div class="UnitsEtc">CMD12: <span class="Units">B1, B5, E1, <span class="CurrUnit">E23</span>, E34, T1, U34A, U34B</span> (5’s)</div>
+    //  <a class="LeftLeft" href="">
+    //    <div>Story Rd & Hopkins Dr&nbsp;</div>
+    //    <div>(Golden Wheel MHP)</div>
+    //  </a>
+    //</div>
+    
+    // Compose the text...
+    var strCallType = objIncident.type;
+    if (objIncident.alarm)
+      strCallType += " (" + objIncident.alarm + "A)";
+    if (objIncident.cmd)
+      strCallType += ": " + objIncident.cmd;
+    
+    var arrUnits = objIncident.units;
+    var bIncludesCurrUnit = arrUnits.includes(strCurrUnit);
+    var strUnitsEtc = '<span class="Units">' + arrUnits.join(", ") + '</span>';
+    if (bIncludesCurrUnit)
+    {
+      var strEmphasizedUnit = '<span class="CurrUnit">' + strCurrUnit + '</span>';
+      strUnitsEtc = strUnitsEtc.replace(new RegExp("\\b" + strCurrUnit + "\\b"), strEmphasizedUnit);
+    }
+    if (objIncident.firstDue)
+      strUnitsEtc += " (" + objIncident.firstDue + "’s)";
+    
+    var strMapAddressUrl = kStrDirectionsUrl.replace("%s", objIncident.latlong);
+    
+    // Create and insert the elements...
+    var divCall = addDiv(divCalls, (bIncludesCurrUnit? "Call CurrCall" : "Call"));
+    
+    var divTypeAndTime = addDiv(divCall, "LeftRight");
+    addDiv(divTypeAndTime, "Deemphasize", strCallType);
+    addDiv(divTypeAndTime, "RelTime", "-").callTime = new Date(objIncident.time);
+    
+    //if (objIncident.cmd)
+    //  addDiv(divCall, null, objIncident.cmd);
+    
+    addDiv(divCall, "UnitsEtc", strUnitsEtc);
+    
+    var linkAddress = document.createElement("a");
+    linkAddress.className = "LeftLeft";
+    linkAddress.href = strMapAddressUrl;
+    linkAddress.target = "_blank";
+    divCall.appendChild(linkAddress);
+    if (objIncident.placeName || objIncident.public)
+    {
+      addDiv(linkAddress, null, objIncident.address + "&nbsp;");
+      addDiv(linkAddress, null, "(" + (objIncident.placeName || "public") + ")");
+    }
+    else
+      addDiv(linkAddress, null, objIncident.address);
+    
+    var hr = document.createElement("hr");
+    hr.className = "Spacer";
+    divCalls.appendChild(hr);
   }
   
+  updateTimes();
   
   //var strLocale = 'en-US';
   //var options = { timeZone:'America/Los_Angeles' };
@@ -70,12 +164,25 @@ function updatePage(arrActiveIncs)
 }
 
 
+function addDiv(appendInElt, strClasses, strText)
+{
+  var div = document.createElement("div");
+  if (strClasses)
+    div.className = strClasses;
+  if (strText)
+    div.innerHTML = strText;
+  if (appendInElt)
+    appendInElt.appendChild(div);
+  return div;
+}
+
+
 function refreshData()
 {
   animateRefresh(true);
   
   //############### FOR TESTING... ###################
-  setTimeout(onDataReceived, 2500);
+  setTimeout(onDataReceived, 500);
 }
 
 
@@ -84,13 +191,13 @@ function onDataReceived()
   animateRefresh(false);
   
   //############### FOR TESTING... ###################
-  var arrActiveIncs =
+  gArrActiveIncs =
   [
     {
-      "time": "2019-06-04T04:24:08Z",
+      "time": "2019-06-04T04:22:30Z",
       "type": "Medical",
       "latlong": "37.3701980556,-121.8429499722",
-      "address": "Mckee Rd",
+      "address": "McKee Rd",
       "public": true,
       "units": [
         "E2"
@@ -109,19 +216,28 @@ function onDataReceived()
     },
     {
       "time": "2019-06-04T04:15:27Z",
-      "type": "Medical",
+      "type": "Structure Fire",
+      "alarm": "1",
+      "cmd": "CMD12",
       "latlong": "37.2836453333,-121.7904331389",
       "address": "Mountaire Ct",
       "units": [
-        "E24",
-        "E624"
-      ]
+        "B1",
+        "B5",
+        "E23",
+        "E34",
+        "T1",
+        "U34A",
+        "U34B"
+      ],
+      "firstDue": 5
     },
     {
       "time": "2019-06-04T04:12:21Z",
       "type": "Carbon Monoxide",
       "latlong": "37.2984915556,-121.8680324167",
       "address": "213 Azevedo Cir",
+      "placeName": "Golden Wheel MHP",
       "units": [
         "E26"
       ]
@@ -138,14 +254,14 @@ function onDataReceived()
     }
   ];
   
-  updatePage(arrActiveIncs);
+  updatePage();
 }
 
 
 function animateRefresh(bOn)
 {
-  const kstrRefreshStaticImg = "RefreshButton.gif";
-  const kstrRefreshAnimImg = "RefreshAnim.gif";
+  const kstrRefreshStaticImg = "PulsePointFeed/RefreshButton.gif";
+  const kstrRefreshAnimImg = "PulsePointFeed/RefreshAnim.gif";
   
   document.getElementById("RefreshButton").src = (bOn? kstrRefreshAnimImg : kstrRefreshStaticImg);
 }
@@ -156,7 +272,7 @@ function unitInput_selectNumber(eltUnitInput)
   var strCurrVal = eltUnitInput.value;
   var nFrom = 0;
   var nTo = strCurrVal.length;
-  var arrMatch = /^([A-Z]+)\d+$/i.exec(strCurrVal);
+  var arrMatch = /^([A-Z]+)\d*$/i.exec(strCurrVal);
   if (arrMatch)
     nFrom = arrMatch[1].length;
   
@@ -175,6 +291,8 @@ function unitInput_changed(eltUnitInput, bDone)
 
   if (bDone)
     eltUnitInput.blur();
+  
+  updatePage();
   
   return false; // prevent default handling of event
 }

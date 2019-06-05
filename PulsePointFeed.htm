@@ -9,12 +9,12 @@
     
     <title>PulsePointFeed</title>
     
-    <link rel="icon" href="PulsePoint-icon-small.png" type="image/x-icon" />
-    <link rel="shortcut icon" href="PulsePoint-icon-small.png" type="image/x-icon" />
-    <link rel="apple-touch-icon-precomposed" href="PulsePoint-icon-ios.png" />
+    <link rel="icon" href="PulsePointFeed/PulsePoint-icon-small.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="PulsePointFeed/PulsePoint-icon-small.png" type="image/x-icon" />
+    <link rel="apple-touch-icon-precomposed" href="PulsePointFeed/PulsePoint-icon-ios.png" />
     
-    <script type="text/javascript" src="PulsePointFeed.js"></script>
-    <link href="PulsePointFeed.css" rel="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="PulsePointFeed/PulsePointFeed.js"></script>
+    <link href="PulsePointFeed/PulsePointFeed.css" rel="stylesheet" type="text/css" media="all" />
   </head>
   
   <body onload="init()">
@@ -34,54 +34,55 @@
       <div class="Deemphasize">
         <a href="javascript:refreshData();">
           Last refreshed <span id="refreshed">never</span>
-          <img id="RefreshButton" class="RefreshButton" src="RefreshButton.gif" />
+          <img id="RefreshButton" class="RefreshButton" src="PulsePointFeed/RefreshButton.gif" />
         </a>
       </div>
     </div>
     
     <hr class="Spacer" />
     
-    <div class="Call CurrCall">
-      <div class="LeftRight">
-        <div class="Deemphasize">Structure Fire (1A) – CMD12</div>
-        <div><span class="relTime"><1m</span></div>
+    <div id="Calls">
+      <div class="Call CurrCall">
+        <div class="LeftRight">
+          <div class="Deemphasize">Structure Fire (1A)</div>
+          <div><span class="RelTime"><1m</span></div>
+        </div>
+        <div class="Units">CMD12: <strong>B1, B5, E1, <span class="CurrUnit">E23</span>, E34, T1, U34A, U34B</strong> (5’s)</div>
+        <a class="LeftLeft" href="">
+          <div>Story Rd & Hopkins Dr&nbsp;</div>
+          <div>(Golden Wheel MHP)</div>
+        </a>
       </div>
-      <div class="Units"><strong>B1, B5, E1, <span class="CurrUnit">E23</span>, E34, T1, U34A, U34B</strong> (5’s)</div>
-      <a class="LeftLeft" href="">
-        <div>Story Rd & Hopkins Dr&nbsp;</div>
-        <div>(Golden Wheel MHP)</div>
-      </a>
-    </div>
-    
-    <hr class="Spacer" />
-    
-    <div class="Call">
-      <div class="LeftRight">
-        <div class="Deemphasize">Medical</div>
-        <div><span class="relTime">2m</span></div>
+      
+      <hr class="Spacer" />
+      
+      <div class="Call">
+        <div class="LeftRight">
+          <div class="Deemphasize">Medical</div>
+          <div><span class="RelTime">2m</span></div>
+        </div>
+        <div class="Units"><strong><span class="CurrUnit">E23</span>, S5</strong></div>
+        <a class="LeftLeft" href="">
+          <div>Flickinger Park Playground&nbsp;</div>
+          <div>(public)</div>
+        </a>
       </div>
-      <div class="Units"><strong><span class="CurrUnit">E23</span>, S5</strong></div>
-      <a class="LeftLeft" href="">
-        <div>Flickinger Park Playground&nbsp;</div>
-        <div>(public)</div>
-      </a>
-    </div>
-    
-    <hr class="Spacer" />
-    
-    <div class="Call">
-      <div class="LeftRight">
-        <div class="Deemphasize">Alarm [deemph size/vert fixed #4]</div>
-        <div><span class="relTime">5m</span></div>
+      
+      <hr class="Spacer" />
+      
+      <div class="Call">
+        <div class="LeftRight">
+          <div class="Deemphasize">Alarm [deemph size/vert fixed #4]</div>
+          <div><span class="RelTime">5m</span></div>
+        </div>
+        <div class="Units"><strong>E34</strong></div>
+        <a class="LeftLeft" href="">
+          <div>346 Checkers Dr&nbsp;</div>
+          <div>(Checkers Apartments)</div>
+        </a>
       </div>
-      <div class="Units"><strong>E34</strong></div>
-      <a class="LeftLeft" href="">
-        <div>346 Checkers Dr&nbsp;</div>
-        <div>(Checkers Apartments)</div>
-      </a>
+      
+      <hr class="Spacer" />
     </div>
-    
-    <hr class="Spacer" />
-    
   </body>
 </html>
