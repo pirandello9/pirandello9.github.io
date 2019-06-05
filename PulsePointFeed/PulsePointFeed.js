@@ -290,6 +290,7 @@ function unitInput_changed(eltUnitInput, event)
   {
     document.activeElement.blur();
     eltUnitInput.blur();
+    window.focus();
     return;
   }
 
