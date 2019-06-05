@@ -99,7 +99,10 @@ function updatePage(bRefreshed)
     //</div>
     
     // Compose the text...
-    var strCallType = objIncident.type;
+    var strTypeCode = objIncident.type || "unk";
+    var strTypeImageUrl = "https://web.pulsepoint.org/assets/images/list/" + strTypeCode.toLowerCase() + "_list.png";
+    
+    var strCallType = objIncident.typeName;
     if (objIncident.alarm)
       strCallType += " (" + objIncident.alarm + "A)";
     if (objIncident.cmd)
@@ -122,7 +125,11 @@ function updatePage(bRefreshed)
     var divCall = addDiv(divCalls, (bIncludesCurrUnit? "Call CurrCall" : "Call"));
     
     var divTypeAndTime = addDiv(divCall, "LeftRight");
-    addDiv(divTypeAndTime, "Deemphasize", strCallType);
+    var divType = addDiv(divTypeAndTime, "Deemphasize", strCallType);
+    var imgType = document.createElement("img");
+    imgType.className = "CallTypeIcon";
+    imgType.src = strTypeImageUrl;
+    divType.insertBefore(imgType, divType.firstChild);
     addDiv(divTypeAndTime, "RelTime", "-").callTime = new Date(objIncident.time);
     
     //if (objIncident.cmd)
@@ -198,7 +205,8 @@ function onDataReceived()
   [
     {
       "time": "2019-06-04T04:22:30Z",
-      "type": "Medical",
+      "type": "ME",
+      "typeName": "Medical",
       "latlong": "37.3701980556,-121.8429499722",
       "address": "McKee Rd",
       "public": true,
@@ -208,7 +216,8 @@ function onDataReceived()
     },
     {
       "time": "2019-06-04T04:17:30Z",
-      "type": "Public Service",
+      "type": "PS",
+      "typeName": "Public Service",
       "latlong": "37.3436547778,-121.8375635556",
       "address": "Story Rd & Hopkins Dr",
       "public": true,
@@ -219,7 +228,8 @@ function onDataReceived()
     },
     {
       "time": "2019-06-04T04:15:27Z",
-      "type": "Structure Fire",
+      "type": "SF",
+      "typeName": "Structure Fire",
       "alarm": "1",
       "cmd": "CMD12",
       "latlong": "37.2836453333,-121.7904331389",
@@ -237,7 +247,8 @@ function onDataReceived()
     },
     {
       "time": "2019-06-04T04:12:21Z",
-      "type": "Carbon Monoxide",
+      "type": "CMA",
+      "typeName": "Carbon Monoxide",
       "latlong": "37.2984915556,-121.8680324167",
       "address": "213 Azevedo Cir",
       "placeName": "Golden Wheel MHP",
@@ -247,7 +258,8 @@ function onDataReceived()
     },
     {
       "time": "2019-06-04T04:10:35Z",
-      "type": "Medical",
+      "type": "ME",
+      "typeName": "Medical",
       "latlong": "37.2299803611,-121.8684615556",
       "address": "Fleetwood Dr",
       "firstDue": "22",
@@ -288,6 +300,7 @@ function unitInput_changed(eltUnitInput, event)
   var char = event.which || event.keyCode;
   if (char === 13)
   {
+    // Do some seemingly redundant unfocus actions in order to dismiss iOS keyboard
     document.activeElement.blur();
     eltUnitInput.blur();
     window.focus();

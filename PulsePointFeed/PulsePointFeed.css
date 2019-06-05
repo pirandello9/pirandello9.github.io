@@ -30,6 +30,14 @@ a {
   height: 1.6em;
 }
 
+.CallTypeIcon {
+  vertical-align: middle;
+  padding-right: 0.1em;
+  padding-bottom: 0.1em;
+  width: 1.6em;
+  height: 1.6em;
+}
+
 hr.Spacer {
   margin-top: 0.4em;
   margin-bottom: 0.4em;
@@ -50,7 +58,7 @@ div.Deemphasize {
 }
 
 div.UnitsEtc {
-  padding-top: 0.3em;
+  padding-top: 0.1em;
   padding-bottom: 0.3em;
 }
 
