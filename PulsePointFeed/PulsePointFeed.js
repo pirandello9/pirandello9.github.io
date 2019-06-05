@@ -283,17 +283,21 @@ function unitInput_selectNumber(eltUnitInput)
 }
 
 
-function unitInput_changed(eltUnitInput, bDone)
+function unitInput_changed(eltUnitInput, event)
 {
+  var char = event.which || event.keyCode;
+  if (char === 13)
+  {
+    eltUnitInput.blur();
+    return;
+  }
+
   var val = eltUnitInput.value.match(/^[A-Z]{1,3}\d{0,3}/i);
   //######## EVENTUALLY MORE VALIDATION? (E.G. RESTRICT TO [ETUS]\d{1,3} ???)
   gStrCurrentUnit = val? val.toString().toUpperCase() : "";
   eltUnitInput.value = gStrCurrentUnit;
   
   localStorage.setItem("currUnit", gStrCurrentUnit);
-  
-  if (bDone)
-    eltUnitInput.blur();
   
   updatePage();
   
