@@ -60,7 +60,7 @@ function updateTimes()
 }
 
 
-function updatePage()
+function updatePage(bRefreshed)
 {
   const kStrDirectionsUrl = "https://www.google.com/maps/dir/?api=1&destination=%s&travelmode=driving";
 
@@ -159,8 +159,11 @@ function updatePage()
   strDateTime = strDateTime.replace(/ \b([AP]M)\b/i, "$1").toLowerCase();
   //strDateTime = strDateTime.replace(/,/g, "");
   
-  var eltRefreshedTime = document.getElementById("refreshed");
-  eltRefreshedTime.innerText = strDateTime;
+  if (bRefreshed)
+  {
+    var eltRefreshedTime = document.getElementById("refreshed");
+    eltRefreshedTime.innerText = strDateTime;
+  }
 }
 
 
@@ -254,7 +257,7 @@ function onDataReceived()
     }
   ];
   
-  updatePage();
+  updatePage(true);
 }
 
 
