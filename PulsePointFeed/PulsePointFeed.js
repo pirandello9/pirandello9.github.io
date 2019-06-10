@@ -47,7 +47,7 @@ function updateTimes()
 }
 
 
-function updatePage(bRefreshed)
+function updatePage()
 {
   const kStrDirectionsUrl = "https://www.google.com/maps/dir/?api=1&destination=%s&travelmode=driving";
 
@@ -152,12 +152,12 @@ function updatePage(bRefreshed)
   var strDateTime = now.toLocaleTimeString("en-US", options);
   strDateTime = strDateTime.replace(/ \b([AP]M)\b/i, "$1").toLowerCase();
   //strDateTime = strDateTime.replace(/,/g, "");
-  
-  if (bRefreshed)
-  {
-    var eltRefreshedTime = document.getElementById("RefreshedTime");
-    eltRefreshedTime.innerText = strDateTime;
-  }
+}
+
+
+function updateRefreshedTime()
+  var eltRefreshedTime = document.getElementById("RefreshedTime");
+  eltRefreshedTime.innerText = strDateTime;
 }
 
 
@@ -273,6 +273,8 @@ function onDataReceived()
   var strResponseJson = this.responseText || arguments[0];  //########### FOR TESTING
   //console.log(strResponseJson);
   
+  updateRefreshedTime();
+  
   if (strResponseJson === gStrLastJson)
     console.log("Received same as current data from pulsepoint");
   else
@@ -283,9 +285,8 @@ function onDataReceived()
     console.log("Received %d active calls from pulsepoint", gArrActiveIncs.length);
     
     
-
     
-    updatePage(true);
+    updatePage();
   }
 }
 
