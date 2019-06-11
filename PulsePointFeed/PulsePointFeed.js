@@ -156,6 +156,7 @@ function updatePage()
 
 
 function updateRefreshedTime()
+{
   var eltRefreshedTime = document.getElementById("RefreshedTime");
   eltRefreshedTime.innerText = strDateTime;
 }
