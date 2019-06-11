@@ -143,20 +143,17 @@ function updatePage()
   }
   
   updateTimes();
-  
-  //var strLocale = 'en-US';
-  //var options = { timeZone:'America/Los_Angeles' };
-  var now = new Date();
-  //var options = {month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: 'true'};
-  var options = {hour: 'numeric', minute: '2-digit', hour12: 'true'};
-  var strDateTime = now.toLocaleTimeString("en-US", options);
-  strDateTime = strDateTime.replace(/ \b([AP]M)\b/i, "$1").toLowerCase();
-  //strDateTime = strDateTime.replace(/,/g, "");
 }
 
 
 function updateRefreshedTime()
 {
+  var now = new Date();
+  //var options = { timeZone:'America/Los_Angeles' };
+  var options = {hour: 'numeric', minute: '2-digit', hour12: 'true'};
+  var strDateTime = now.toLocaleTimeString("en-US", options);
+  strDateTime = strDateTime.replace(/ \b([AP]M)\b/i, "$1").toLowerCase();
+  
   var eltRefreshedTime = document.getElementById("RefreshedTime");
   eltRefreshedTime.innerText = strDateTime;
 }
