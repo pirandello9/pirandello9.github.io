@@ -517,7 +517,8 @@ function unitInput_onKeyPress(eltUnitInput, evt)
 		
 		setTimeout(updatePage, 10);
 		setTimeout(scrollToCurrCall, 20);
-		return true;
+		evt.preventDefault();
+		return false;
 	}
 	else
 	{
