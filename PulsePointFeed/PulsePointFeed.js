@@ -11,6 +11,16 @@ var gLinkCurrAddress = null;
 function init()
 {
 	//#############
+	window.onscroll = function()
+	{
+		var eltPageHeader = document.getElementById("PageHeader");
+		if (window.pageYOffset > 80) {
+			eltPageHeader.classList.add("sticky");
+		} else {
+			eltPageHeader.classList.remove("sticky");
+		}
+	};
+	//#############
 	var eltUnitInput = document.getElementById("UnitInput");
 	eltUnitInput.addEventListener("keydown", function(evt) { unitInput_onKeyDown(eltUnitInput, evt); })
 	//#############
