@@ -379,7 +379,9 @@ function unitInput_selectNumber(eltUnitInput)
 	if (match)
 		nFrom = match[1].length;
 	
-	eltUnitInput.setSelectionRange(nFrom, nTo);
+	//eltUnitInput.setSelectionRange(nFrom, nTo);
+	setTimeout(function() { eltUnitInput.setSelectionRange(nFrom, nTo); }, 1);
+
 }
 
 
