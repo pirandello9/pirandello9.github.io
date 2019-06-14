@@ -185,6 +185,13 @@ function updatePage()
 }
 
 
+function scrollToCurrCall()
+{
+	if (gDivCurrCall)
+		gDivCurrCall.scrollIntoView({behavior: "smooth", block: "end", inline: "start"});
+}
+
+
 function getMapLink(strDest)
 {
 	const kStrDirectionsUrl = "https://www.google.com/maps/dir/?api=1&destination=%s&travelmode=driving";
@@ -354,8 +361,8 @@ function onDataReceived()
 		updatePage();
 	}
 	
-	if (gDivCurrCall)
-		gDivCurrCall.scrollIntoView({behavior: "smooth", block: "end", inline: "start"});
+	scrollToCurrCall();
+	
 	if (gLinkCurrAddress && (gLinkCurrAddress.href !== localStorage.getItem("lastCallAddressClicked")))
 		clickElement(gLinkCurrAddress);
 }
@@ -403,7 +410,7 @@ function unitInput_changed(eltUnitInput, event)
 			window.focus();
 			
 			// Special case for iOS Safari: the updatePage() for each keypress doesn't always work (?)
-			updatePage();
+			//updatePage();
 			return false; // prevent default handling of event
 		}
 		
@@ -465,6 +472,7 @@ function unitInput_changed(eltUnitInput, event)
 	document.getElementById("UnitStationLink").href = strMapAddressUrl;
 	
 	setTimeout(updatePage, 10);
+	setTimeout(scrollToCurrCall, 20);
 	return true;
 	
 	//updatePage();
