@@ -1,6 +1,5 @@
 
 // Global vars
-var gStrCurrentUnit = "";  //////################ I DON'T THINK THIS GLOBAL IS NEEDED (?) ###########
 var gStrLastJson = "";
 var gArrAlerts = [];
 var gArrActiveCalls = [];
@@ -11,12 +10,11 @@ var gLinkCurrAddress = null;
 
 function init()
 {
-	gStrCurrentUnit = localStorage.getItem("currUnit");
-	if (gStrCurrentUnit)
+	var strCurrUnit = localStorage.getItem("currUnit");
+	if (strCurrUnit)
 	{
 		var eltUnitInput = document.getElementById("UnitInput");
-		eltUnitInput.value = gStrCurrentUnit;
-		unitInput_changed(eltUnitInput);
+		eltUnitInput.value = strCurrUnit;
 	}
 	
 	updateTimes();
@@ -50,9 +48,9 @@ function updateTimes()
 				if (nDiffSecs <= 5)
 					strRelTime = "now";
 				else if (nDiffSecs < 50)
-					strRelTime = "<" + (Math.floor(nDiffSecs / 10) + 1) + "0s";
+					strRelTime = "< " + (Math.floor(nDiffSecs / 10) + 1) + "0s";	// space after "<" is "hair space"
 				else
-					strRelTime = "<1m";
+					strRelTime = "< 1m";																					// space after "<" is "hair space"
 				//strRelTime = Math.round(nDiffMilliSecs / 1000.0) + "s";
 			}
 			else if (fDiffMins > 1440.0)
@@ -74,7 +72,7 @@ function updateTimes()
 
 function updatePage()
 {
-	var strCurrUnit = document.getElementById("UnitInput").value;
+	var strCurrUnit = document.getElementById("UnitInput").value.toUpperCase();
 	var divCalls = document.getElementById("Calls");
 	
 	// Empty out Calls div
@@ -392,92 +390,99 @@ function unitInput_selectNumber(eltUnitInput)
 }
 
 
-// Called for onKeyDown and onKeyUp  #########--> REMOVED onKeyUp="unitInput_changed(this, event)"
-function unitInput_changed(eltUnitInput, event)
+// NOTE: Only handling onKeyDown to catch backspace/delete and pass them to unitInput_onKeyPress
+// (since they don't generate onKeyPress events)
+function unitInput_onKeyDown(eltUnitInput, evt)
 {
+	if (evt.which === 8 || evt.which === 46)	// backspace, delete
+		return unitInput_onKeyPress(eltUnitInput, evt);
+	else
+		return true;
+}
+
+
+function unitInput_onKeyPress(eltUnitInput, evt)
+{
+	//console.log(evt.which);
+	
 	var strVal = eltUnitInput.value;
-	var nSelStart = eltUnitInput.selectionStart;
-	var strAddedChar = "";
+	//var nSelStart = eltUnitInput.selectionStart;
 	
-	if (event)
+	var ch = evt.which;
+	
+	// NOTE: Backspace/delete don't generate onKeyPress, so catching them via onKeyDown and passing them here
+	var bIsBackspaceOrDelete = (ch === 8 || ch === 46);
+	var bIsNumberOrLetter = (ch >= 48 && ch <= 57) || (ch >= 97 && ch <= 122) || (ch >= 65 && ch <= 90);
+	
+	if (bIsBackspaceOrDelete || bIsNumberOrLetter)
 	{
-		var ch = event.which || event.keyCode;
-		if (ch === 13)
-		{
-			// Do some seemingly redundant unfocus actions in order to dismiss iOS keyboard
-			document.activeElement.blur();
-			eltUnitInput.blur();
-			window.focus();
-			
-			// Special case for iOS Safari: the updatePage() for each keypress doesn't always work (?)
-			//updatePage();
-			return false; // prevent default handling of event
-		}
+		var nSelStart = eltUnitInput.selectionStart;
+		var nSelEnd = eltUnitInput.selectionEnd;
+
+		if (bIsNumberOrLetter)
+			// Number/letter: replace selected text (or empty selection) with added char
+			strVal = strVal.substr(0, nSelStart) + String.fromCharCode(ch) + strVal.substr(nSelEnd);
+		else if (nSelStart !== nSelEnd)
+			// Backspace/delete with non-empty selection: delete selected text
+			strVal = strVal.substr(0, nSelStart) + strVal.substr(nSelEnd);
+		else if (ch === 8)
+			// backspace: delete 1 char left of nSelStart
+			strVal = strVal.substr(0, nSelStart - 1) + strVal.substr(nSelStart);
+		else // (ch === 46)
+			// delete: delete 1 char right of nSelStart
+			strVal = strVal.substr(0, nSelStart) + strVal.substr(nSelStart + 1);
 		
-		// Special case for iOS Safari: typing doesn't always replace currently selected text (?),
-		// so manually delete selection for relevent chars
+		strVal = strVal.toUpperCase();
 		
-		var bDeleteSelected = (ch === 8 || ch === 46);					// backspace, delete
+		var strCurrUnit = null;
+		var strUnitNumber = null;
 		
-		if ((ch >= 48 && ch <= 57) || (ch >= 97 && ch <= 122) || (ch >= 65 && ch <= 90))		// digits, lowercase/uppercase letters
-		{
-			strAddedChar = String.fromCharCode(ch);
-			bDeleteSelected = true;
-			
-			//console.log("SEL:  %s - %s", eltUnitInput.selectionStart, eltUnitInput.selectionEnd);
-			//alert("SEL:  " + eltUnitInput.selectionStart + " - " + eltUnitInput.selectionEnd);
-			
-			//save the original cursor position
-			//var nSelStart = eltUnitInput.selectionStart
-			//strVal = strVal.substr(0, nSelStart) + strVal.substr(eltUnitInput.selectionEnd);
-			//eltUnitInput.value = strVal;
-			//restore original cursor position
-			//eltUnitInput.selectionStart = eltUnitInput.selectionEnd = nSelStart;
-			//alert('HERE');
-		}
-		
-		if (bDeleteSelected)
-			strVal = strVal.substr(0, nSelStart) + strVal.substr(eltUnitInput.selectionEnd);
-	}
-	
-	gStrCurrentUnit = "";
-	var strMapAddressUrl = "";
-	
-	if (strAddedChar)
-	{
-		strTestVal = (strVal.substr(0, nSelStart) + strAddedChar + strVal.substr(nSelStart)).toUpperCase();
-	
-		//######## EVENTUALLY MORE VALIDATION? (E.G. RESTRICT TO [ETUS]\d{1,3} ???)
-		var match = /^[A-Z]{1,3}(\d{0,3})/.exec(strTestVal);
-		if (!match || match[0] !== strTestVal)
-			return false;
-		
+		//######## EVENTUALLY MORE VALIDATION? (E.G. RESTRICT TO [ETUS]\d{1,3} and PREVENT LEADING ZERO AFTER LETTER ???)
+		var match = /^[A-Z]{1,3}(\d{0,3})$/.exec(strVal);
 		if (match)
+			[strCurrUnit, strUnitNumber] = match;
+		else if (bIsBackspaceOrDelete)
+			// Allow validation fail only if backspace/delete
+			strCurrUnit = strVal;
+		else
 		{
-			gStrCurrentUnit = match[0].toUpperCase();
-			var strStationNumber = match[1];
-			if (strStationNumber)
-			{
-				var nStationNumber = parseInt(strStationNumber, 10) % 100;  // just last 2 digits of unit number
-				strMapAddressUrl = getMapLink("San Jose Fire Department Station " + nStationNumber);
-			}
+			// Otherwise, i.e. for added number/letter, prevent it if it would cause validation fail
+			evt.preventDefault();
+			return false;
 		}
+		
+		//console.log("strCurrUnit = %s  /  strUnitNumber = %s", strCurrUnit, strUnitNumber);
+		
+		if (strUnitNumber)
+		{
+			var nStationNumber = parseInt(strUnitNumber, 10) % 100;  // just last 2 digits of unit number
+			var strMapAddressUrl = getMapLink("San Jose Fire Department Station " + nStationNumber);
+			document.getElementById("UnitStationLink").href = strMapAddressUrl;
+		}
+		
+		localStorage.setItem("currUnit", strCurrUnit);
+		setTimeout(updatePage, 10);
+		//setTimeout(scrollToCurrCall, 20);
+		return true;
 	}
-	
-	//eltUnitInput.value = gStrCurrentUnit;
-	//eltUnitInput.setSelectionRange(nSelStart, nSelStart);
-	
-	localStorage.setItem("currUnit", gStrCurrentUnit);
-	
-	document.getElementById("UnitStationLink").href = strMapAddressUrl;
-	
-	setTimeout(updatePage, 10);
-	setTimeout(scrollToCurrCall, 20);
-	return true;
-	
-	//updatePage();
-	//
-	//return false; // prevent default handling of event
+	else if (ch === 13)
+	{
+		// Special case for iOS Safari: extra unfocus actions in order to make iOS keyboard dismiss
+		document.activeElement.blur();
+		eltUnitInput.blur();
+		window.focus();
+		
+		setTimeout(updatePage, 10);
+		setTimeout(scrollToCurrCall, 20);
+		return true;
+	}
+	else
+	{
+		// Prevent all other keys
+		evt.preventDefault();
+		return false;
+	}
+	// NOTE: No need to check for any cursor-movement keys here, as they don't generate onKeyPress events
 }
 
 
@@ -491,50 +496,3 @@ function clickElement(elt)
 	elt.blur();
 }
 
-
-
-
-//function updateAssignedTimeIndicators(dateTimeCurr)
-//{
-//  const kstrNextMarker = "?";  // (? seems too big/garish on iphone)
-//  var arrAssignedTables = document.querySelectorAll("table.AssignedTable");
-//  for (var i = 0; i < arrAssignedTables.length; i++)
-//  {
-//    var eltAssignedTable = arrAssignedTables[i];
-//    var strShiftDate = eltAssignedTable.getAttribute("data-date");
-//    for (var j = 0; j < eltAssignedTable.rows.length; j++)
-//    {
-//      var eltRow = eltAssignedTable.rows[j];
-//      eltRow.classList.remove("Past");
-//      eltRow.classList.remove("Current");
-//      var strTimes = eltRow.getAttribute("data-times");
-//      if (strTimes)
-//      {
-//        var strStartTime = strTimes.substr(0, 5);
-//        var datetimeStart = getDatetimeInShift(strShiftDate, strStartTime, false);
-//        if (dateTimeCurr > datetimeStart)
-//        {
-//          var strEndTime = strTimes.substr(strTimes.length - 5);
-//          var datetimeEnd = getDatetimeInShift(strShiftDate, strEndTime, true);
-//          //alert("curr = " + dateTimeCurr + "\nstart = " + datetimeStart + "\nend = " + datetimeEnd);
-//          eltRow.classList.add((dateTimeCurr < datetimeEnd)? "Current" : "Past");
-//        }
-//        else
-//        {
-//          eltRow.cells[0].textContent = kstrNextMarker;
-//          return;
-//        }
-//      }
-//    }
-//  }
-//}
-//
-//function getDatetimeInShift(strShiftDate, strTime, bIsEndTime)
-//{
-//  var nHour = parseInt(strTime.substr(0, 2), 10);
-//  var bNextMorning = bIsEndTime? (nHour <= 8) : (nHour < 8);
-//  var datetime = new Date(strShiftDate + " " + strTime);
-//  if (bNextMorning)
-//    datetime.setDate(datetime.getDate() + 1);
-//  return datetime;
-//}

@@ -28,14 +28,15 @@
           <h1 style="margin-top: 0;">
             <span class="Deemphasize">Current unit:</span>
             <br />
-            <input id="UnitInput" type="text" name="Unit" size="4"
-              value=""
-              onClick="unitInput_selectNumber(this)"
-              onKeyDown="unitInput_changed(this, event)"
-              onKeyUp="unitInput_changed(this, event)" />
             <a id="UnitStationLink" target="_blank" href="">
               <img class="UnitLinkButton" src="PulsePointFeed/ArrowOut.png" />
             </a>
+            <input id="UnitInput" type="text" style="text-transform: uppercase;" name="Unit" size="4"
+              value=""
+              onFocus="unitInput_selectNumber(this)"
+              onKeyDown="unitInput_onKeyDown(this, event)"
+              onKeyPress="unitInput_onKeyPress(this, event)"
+               />
           </h1>
       </div>
       <div class="LastRefreshed Deemphasize">
