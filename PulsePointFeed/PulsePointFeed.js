@@ -416,6 +416,7 @@ function unitInput_changed(eltUnitInput, event)
 			eltUnitInput.value = strVal;
 			//restore original cursor position
 			eltUnitInput.selectionStart = eltUnitInput.selectionEnd = nSelStart;
+			alert('HERE');
 		}
 	}
 	
