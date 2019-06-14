@@ -379,12 +379,13 @@ function unitInput_selectNumber(eltUnitInput)
 	if (match)
 		nFrom = match[1].length;
 	
-	//eltUnitInput.setSelectionRange(nFrom, nTo);
-	setTimeout(function() { eltUnitInput.setSelectionRange(nFrom, nTo); }, 1);
-
+	eltUnitInput.setSelectionRange(nFrom, nTo);
+	//eltUnitInput.selectionStart = nFrom;
+	//eltUnitInput.selectionEnd = nTo;
 }
 
 
+// Called for onKeyDown and onKeyUp
 function unitInput_changed(eltUnitInput, event)
 {
 	if (event)
@@ -399,6 +400,8 @@ function unitInput_changed(eltUnitInput, event)
 			return;
 		}
 	}
+	
+	console.log("SEL:  %s - %s", eltUnitInput.selectionStart, eltUnitInput.selectionEnd);
 	
 	//var val = eltUnitInput.value.match(/^[A-Z]{1,3}\d{0,3}/i);
 	////######## EVENTUALLY MORE VALIDATION? (E.G. RESTRICT TO [ETUS]\d{1,3} ???)
