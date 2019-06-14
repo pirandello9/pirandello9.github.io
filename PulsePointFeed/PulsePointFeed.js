@@ -1,6 +1,6 @@
 
 // Global vars
-var gStrCurrentUnit = "";
+var gStrCurrentUnit = "";  //////################ I DON'T THINK THIS GLOBAL IS NEEDED (?) ###########
 var gStrLastJson = "";
 var gArrAlerts = [];
 var gArrActiveCalls = [];
@@ -397,6 +397,8 @@ function unitInput_changed(eltUnitInput, event)
 			document.activeElement.blur();
 			eltUnitInput.blur();
 			window.focus();
+			
+			updatePage();
 			return;
 		}
 		
@@ -427,7 +429,7 @@ function unitInput_changed(eltUnitInput, event)
 	var match = /^[A-Z]{1,3}(\d{0,3})/i.exec(eltUnitInput.value);
 	if (match)
 	{
-		gStrCurrentUnit = match[0].toString().toUpperCase();
+		gStrCurrentUnit = match[0].toUpperCase();
 		var strStationNumber = match[1];
 		if (strStationNumber)
 		{
@@ -435,7 +437,7 @@ function unitInput_changed(eltUnitInput, event)
 			strMapAddressUrl = getMapLink("San Jose Fire Department Station " + nStationNumber);
 		}
 	}
-
+	
 	eltUnitInput.value = gStrCurrentUnit;
 	localStorage.setItem("currUnit", gStrCurrentUnit);
 	
