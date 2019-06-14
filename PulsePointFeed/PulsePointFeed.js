@@ -385,9 +385,12 @@ function unitInput_selectNumber(eltUnitInput)
 }
 
 
-// Called for onKeyDown and onKeyUp
+// Called for onKeyDown and onKeyUp  #########--> REMOVED onKeyUp="unitInput_changed(this, event)"
 function unitInput_changed(eltUnitInput, event)
 {
+	var strVal = eltUnitInput.value;
+	var nNewSel = eltUnitInput.selectionStart;
+	
 	if (event)
 	{
 		var ch = event.which || event.keyCode;
@@ -400,37 +403,31 @@ function unitInput_changed(eltUnitInput, event)
 			
 			// Special case for iOS Safari: the updatePage() for each keypress doesn't always work (?)
 			updatePage();
-			return;
+			return false; // prevent default handling of event
 		}
 		
 		// Special case for iOS Safari: typing doesn't always replace currently selected text (?),
 		// so manually delete selection for relevent chars
-		if (ch === 8 || (ch >= 65 && ch <= 90) || (ch >= 48 && ch <= 57))	 // backspace, letters, digits
-		{
-			//console.log("SEL:  %s - %s", eltUnitInput.selectionStart, eltUnitInput.selectionEnd);
-			alert("SEL:  " + eltUnitInput.selectionStart + " - " + eltUnitInput.selectionEnd);
-			
-			//save the original cursor position
-			var nSelStart = eltUnitInput.selectionStart
-			var strVal = eltUnitInput.value;
-			strVal = strVal.substr(0, nSelStart) + strVal.substr(eltUnitInput.selectionEnd);
-			eltUnitInput.value = strVal;
-			//restore original cursor position
-			eltUnitInput.selectionStart = eltUnitInput.selectionEnd = nSelStart;
-			alert('HERE');
-		}
+		//if (ch === 8 || (ch >= 65 && ch <= 90) || (ch >= 48 && ch <= 57))	 // backspace, letters, digits
+		//{
+		//	//console.log("SEL:  %s - %s", eltUnitInput.selectionStart, eltUnitInput.selectionEnd);
+		//	//alert("SEL:  " + eltUnitInput.selectionStart + " - " + eltUnitInput.selectionEnd);
+		//
+		//	//save the original cursor position
+		//	var nSelStart = eltUnitInput.selectionStart
+		//	strVal = strVal.substr(0, nSelStart) + strVal.substr(eltUnitInput.selectionEnd);
+		//	eltUnitInput.value = strVal;
+		//	//restore original cursor position
+		//	//eltUnitInput.selectionStart = eltUnitInput.selectionEnd = nSelStart;
+		//	//alert('HERE');
+		//}
 	}
 	
-	
-	//var val = eltUnitInput.value.match(/^[A-Z]{1,3}\d{0,3}/i);
-	////######## EVENTUALLY MORE VALIDATION? (E.G. RESTRICT TO [ETUS]\d{1,3} ???)
-	//gStrCurrentUnit = val? val.toString().toUpperCase() : "";
-
 	gStrCurrentUnit = "";
 	var strMapAddressUrl = "";
 	
 	//######## EVENTUALLY MORE VALIDATION? (E.G. RESTRICT TO [ETUS]\d{1,3} ???)
-	var match = /^[A-Z]{1,3}(\d{0,3})/i.exec(eltUnitInput.value);
+	var match = /^[A-Z]{1,3}(\d{0,3})/i.exec(strVal);
 	if (match)
 	{
 		gStrCurrentUnit = match[0].toUpperCase();
