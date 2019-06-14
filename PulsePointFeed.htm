@@ -25,25 +25,24 @@
     
     <div id="PageHeader" class="LeftRight">
       <div>
-          <h1 style="margin-top: 0;">
-            <span class="Deemphasize">Current unit:</span>
-            <br />
-            <a id="UnitStationLink" target="_blank" href="">
-              <img class="UnitLinkButton" src="PulsePointFeed/ArrowOut.png" />
-            </a>
-            <input id="UnitInput" type="text" style="text-transform: uppercase;" name="Unit" size="4"
-              value=""
-              onFocus="unitInput_selectNumber(this)"
-              onKeyDown="unitInput_onKeyDown(this, event)"
-              onKeyPress="unitInput_onKeyPress(this, event)"
-               />
-          </h1>
+        <h1 style="margin-top: 0; margin-bottom: 0; ">
+          <span class="Deemphasize">Current unit:</span>
+          <br />
+          <a id="UnitStationLink" target="_blank" href="">
+            <img class="UnitLinkButton" src="PulsePointFeed/ArrowOut.png" />
+          </a>
+          <input id="UnitInput" type="text" style="text-transform: uppercase;" name="Unit" size="4"
+            value=""
+            onFocus="unitInput_selectNumber(this)"
+            onKeyDown="unitInput_onKeyDown(this, event)"
+            onKeyPress="unitInput_onKeyPress(this, event)"
+             />
+        </h1>
       </div>
       <div class="LastRefreshed Deemphasize">
         <a href="javascript:refreshData();">
           Last refreshed <br/><span id="RefreshedTime">...</span>
           <img id="RefreshButton" class="RefreshButton" src="PulsePointFeed/RefreshButton.gif" />
-          <br />&nbsp;
         </a>
       </div>
     </div>
