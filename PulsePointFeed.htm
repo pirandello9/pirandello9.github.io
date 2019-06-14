@@ -33,7 +33,8 @@
           </a>
           <input id="UnitInput" type="text" style="text-transform: uppercase;" name="Unit" size="4"
             value=""
-            onFocus="unitInput_selectNumber(this)"
+            onFocus="unitInput_onFocus(this)"
+            onBlur="unitInput_onBlur(this)"
             onKeyDown="unitInput_onKeyDown(this, event)"
             onKeyPress="unitInput_onKeyPress(this, event)"
              />

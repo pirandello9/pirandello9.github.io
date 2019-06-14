@@ -418,8 +418,9 @@ function animateRefresh(bOn)
 }
 
 
-function unitInput_selectNumber(eltUnitInput)
+function unitInput_onFocus(eltUnitInput)
 {
+	// Select just the number portion
 	var strCurrVal = eltUnitInput.value;
 	var nFrom = 0;
 	var nTo = strCurrVal.length;
@@ -428,8 +429,13 @@ function unitInput_selectNumber(eltUnitInput)
 		nFrom = match[1].length;
 	
 	eltUnitInput.setSelectionRange(nFrom, nTo);
-	//eltUnitInput.selectionStart = nFrom;
-	//eltUnitInput.selectionEnd = nTo;
+}
+
+
+function unitInput_onBlur(eltUnitInput)
+{
+	// To hilite the current call (in case it didn't update while editing the input)
+	setTimeout(updatePage, 10);
 }
 
 
@@ -514,7 +520,7 @@ function unitInput_onKeyPress(eltUnitInput, evt)
 		eltUnitInput.blur();
 		window.focus();
 		
-		setTimeout(updatePage, 10);
+		// Note: updatePage will happen here via unitInput_onBlur
 		setTimeout(scrollToCurrCall, 20);
 		evt.preventDefault();
 		return false;
