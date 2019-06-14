@@ -80,7 +80,7 @@ hr.Spacer {
 /* The sticky class is added to the header with JS when it reaches its scroll position */
 .sticky {
   position: fixed;
-  top: 0;
+  top: -32px;
   width: 91%
 }
 
