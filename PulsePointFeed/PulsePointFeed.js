@@ -390,8 +390,8 @@ function unitInput_changed(eltUnitInput, event)
 {
 	if (event)
 	{
-		var char = event.which || event.keyCode;
-		if (char === 13)
+		var ch = event.which || event.keyCode;
+		if (ch === 13)
 		{
 			// Do some seemingly redundant unfocus actions in order to dismiss iOS keyboard
 			document.activeElement.blur();
@@ -399,9 +399,22 @@ function unitInput_changed(eltUnitInput, event)
 			window.focus();
 			return;
 		}
+		
+		// For some reason on iOS Safari, typing doesn't replace currently selected text,
+		// so special case delete selection for relevent chars
+		if (ch === 8 || (ch >= 65 && ch <= 90) || (ch >= 48 && ch <= 57))	 // backspace, letters, digits
+		{
+			//console.log("SEL:  %s - %s", eltUnitInput.selectionStart, eltUnitInput.selectionEnd);
+			
+			//save the original cursor position
+			var cursorPos = eltUnitInput.selectionStart
+			text = text.slice(0, eltUnitInput.selectionStart) + text.slice(eltUnitInput.selectionEnd);
+			eltUnitInput.value = text;
+			//restore original cursor position
+			eltUnitInput.selectionStart = eltUnitInput.selectionEnd = cursorPos
+		}
 	}
 	
-	console.log("SEL:  %s - %s", eltUnitInput.selectionStart, eltUnitInput.selectionEnd);
 	
 	//var val = eltUnitInput.value.match(/^[A-Z]{1,3}\d{0,3}/i);
 	////######## EVENTUALLY MORE VALIDATION? (E.G. RESTRICT TO [ETUS]\d{1,3} ???)
