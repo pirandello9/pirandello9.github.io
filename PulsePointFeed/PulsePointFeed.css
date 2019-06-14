@@ -28,6 +28,7 @@ a {
 
 .UnitLinkButton {
   vertical-align: middle;
+  padding-left: 0.1em;
   padding-bottom: 0.2em;
   width: 1.5em;
   height: 1.1em;
@@ -38,9 +39,9 @@ a {
 
 .RefreshButton {
   vertical-align: middle;
-  padding-bottom: 0.1em;
   padding-left: 0.1em;
-  padding-right: 0.1em;
+  padding-right: 0.05em;
+  padding-bottom: 0.1em;
   width: 1.6em;
   height: 1.6em;
 }
