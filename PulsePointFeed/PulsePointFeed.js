@@ -394,7 +394,9 @@ function unitInput_selectNumber(eltUnitInput)
 // (since they don't generate onKeyPress events)
 function unitInput_onKeyDown(eltUnitInput, evt)
 {
-	if (evt.which === 8 || evt.which === 46)	// backspace, delete
+	var ch = evt.which || evt.keyCode || evt.key.charCodeAt(0);
+	
+	if (ch === 8 || ch === 46)	// backspace, delete
 		return unitInput_onKeyPress(eltUnitInput, evt);
 	else
 		return true;
@@ -403,12 +405,8 @@ function unitInput_onKeyDown(eltUnitInput, evt)
 
 function unitInput_onKeyPress(eltUnitInput, evt)
 {
-	//console.log(evt.which);
-	
-	var strVal = eltUnitInput.value;
-	//var nSelStart = eltUnitInput.selectionStart;
-	
-	var ch = evt.which;
+	var ch = evt.which || evt.keyCode || evt.key.charCodeAt(0);
+	//console.log(ch);
 	
 	// NOTE: Backspace/delete don't generate onKeyPress, so catching them via onKeyDown and passing them here
 	var bIsBackspaceOrDelete = (ch === 8 || ch === 46);
@@ -416,6 +414,7 @@ function unitInput_onKeyPress(eltUnitInput, evt)
 	
 	if (bIsBackspaceOrDelete || bIsNumberOrLetter)
 	{
+		var strVal = eltUnitInput.value;
 		var nSelStart = eltUnitInput.selectionStart;
 		var nSelEnd = eltUnitInput.selectionEnd;
 
