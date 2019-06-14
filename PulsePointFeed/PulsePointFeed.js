@@ -317,7 +317,8 @@ function refreshData()
 		var objReq = new XMLHttpRequest();
 		objReq.addEventListener("load", onDataReceived);
 		//objReq.open("GET", "https://script.google.com/macros/s/AKfycbwAN-d88IGiGX6t7ddHp2pidzzfco6JjWKawzp-hAhrEHwxMI5J/exec");
-		objReq.open("GET", "http://localhost:4000/");
+		//objReq.open("GET", "http://localhost:4000/");
+		objReq.open("GET", "https://acpulsepoint.herokuapp.com/");
 		objReq.send();
 	}
 }
