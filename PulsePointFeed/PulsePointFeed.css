@@ -26,6 +26,16 @@ a {
   padding-top: 0.15em;
 }
 
+.UnitLinkButton {
+  vertical-align: middle;
+  padding-bottom: 0.2em;
+  width: 1.6em;
+  height: 1.2em;
+  //padding-bottom: 0.2em;
+  //width: 1.6em;
+  //height: 1.6em;
+}
+
 .RefreshButton {
   vertical-align: middle;
   padding-bottom: 0.1em;
@@ -112,10 +122,14 @@ a.Address {
   //background-color: #DDDDFF;
   color: red;
   //color: #FF6600;
-  -moz-border-radius: 0.4em;
-  -webkit-border-radius: 0.4em;
+  //-moz-border-radius: 0.4em;
+  //-webkit-border-radius: 0.4em;
   padding-left: 0.1em;
   padding-right: 0.1em;
+}
+
+.EnRoute {
+  color: #F57C00;
 }
 
 
