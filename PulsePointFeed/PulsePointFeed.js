@@ -389,7 +389,8 @@ function unitInput_selectNumber(eltUnitInput)
 function unitInput_changed(eltUnitInput, event)
 {
 	var strVal = eltUnitInput.value;
-	var nNewSel = eltUnitInput.selectionStart;
+	var nSelStart = eltUnitInput.selectionStart;
+	var strAddedChar = "";
 	
 	if (event)
 	{
@@ -408,47 +409,67 @@ function unitInput_changed(eltUnitInput, event)
 		
 		// Special case for iOS Safari: typing doesn't always replace currently selected text (?),
 		// so manually delete selection for relevent chars
-		if (ch === 8 || (ch >= 65 && ch <= 90) || (ch >= 48 && ch <= 57))	 // backspace, letters, digits
+		
+		var bDeleteSelected = (ch === 8 || ch === 46);					// backspace, delete
+		
+		if ((ch >= 48 && ch <= 57) || (ch >= 97 && ch <= 122) || (ch >= 65 && ch <= 90))		// digits, lowercase/uppercase letters
 		{
+			strAddedChar = String.fromCharCode(ch);
+			bDeleteSelected = true;
+			
 			//console.log("SEL:  %s - %s", eltUnitInput.selectionStart, eltUnitInput.selectionEnd);
 			//alert("SEL:  " + eltUnitInput.selectionStart + " - " + eltUnitInput.selectionEnd);
 			
 			//save the original cursor position
-			var nSelStart = eltUnitInput.selectionStart
-			strVal = strVal.substr(0, nSelStart) + strVal.substr(eltUnitInput.selectionEnd);
+			//var nSelStart = eltUnitInput.selectionStart
+			//strVal = strVal.substr(0, nSelStart) + strVal.substr(eltUnitInput.selectionEnd);
 			//eltUnitInput.value = strVal;
 			//restore original cursor position
 			//eltUnitInput.selectionStart = eltUnitInput.selectionEnd = nSelStart;
 			//alert('HERE');
 		}
+		
+		if (bDeleteSelected)
+			strVal = strVal.substr(0, nSelStart) + strVal.substr(eltUnitInput.selectionEnd);
 	}
 	
 	gStrCurrentUnit = "";
 	var strMapAddressUrl = "";
 	
-	//######## EVENTUALLY MORE VALIDATION? (E.G. RESTRICT TO [ETUS]\d{1,3} ???)
-	var match = /^[A-Z]{1,3}(\d{0,3})/i.exec(strVal);
-	if (match)
+	if (strAddedChar)
 	{
-		gStrCurrentUnit = match[0].toUpperCase();
-		var strStationNumber = match[1];
-		if (strStationNumber)
+		strTestVal = (strVal.substr(0, nSelStart) + strAddedChar + strVal.substr(nSelStart)).toUpperCase();
+	
+		//######## EVENTUALLY MORE VALIDATION? (E.G. RESTRICT TO [ETUS]\d{1,3} ???)
+		var match = /^[A-Z]{1,3}(\d{0,3})/.exec(strTestVal);
+		if (!match || match[0] !== strTestVal)
+			return false;
+		
+		if (match)
 		{
-			var nStationNumber = parseInt(strStationNumber, 10) % 100;  // just last 2 digits of unit number
-			strMapAddressUrl = getMapLink("San Jose Fire Department Station " + nStationNumber);
+			gStrCurrentUnit = match[0].toUpperCase();
+			var strStationNumber = match[1];
+			if (strStationNumber)
+			{
+				var nStationNumber = parseInt(strStationNumber, 10) % 100;  // just last 2 digits of unit number
+				strMapAddressUrl = getMapLink("San Jose Fire Department Station " + nStationNumber);
+			}
 		}
 	}
 	
-	eltUnitInput.value = gStrCurrentUnit;
-	eltUnitInput.setSelectionRange(nNewSel, nNewSel);
+	//eltUnitInput.value = gStrCurrentUnit;
+	//eltUnitInput.setSelectionRange(nSelStart, nSelStart);
 	
 	localStorage.setItem("currUnit", gStrCurrentUnit);
 	
 	document.getElementById("UnitStationLink").href = strMapAddressUrl;
 	
-	updatePage();
+	setTimeout(updatePage, 10);
+	return true;
 	
-	return false; // prevent default handling of event
+	//updatePage();
+	//
+	//return false; // prevent default handling of event
 }
 
 
