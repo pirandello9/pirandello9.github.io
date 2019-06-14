@@ -408,6 +408,7 @@ function unitInput_changed(eltUnitInput, event)
 		if (ch === 8 || (ch >= 65 && ch <= 90) || (ch >= 48 && ch <= 57))	 // backspace, letters, digits
 		{
 			//console.log("SEL:  %s - %s", eltUnitInput.selectionStart, eltUnitInput.selectionEnd);
+			alert("SEL:  " + eltUnitInput.selectionStart + " - " + eltUnitInput.selectionEnd);
 			
 			//save the original cursor position
 			var nSelStart = eltUnitInput.selectionStart
