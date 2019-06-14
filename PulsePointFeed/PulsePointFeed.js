@@ -394,9 +394,9 @@ function unitInput_selectNumber(eltUnitInput)
 // (since they don't generate onKeyPress events)
 function unitInput_onKeyDown(eltUnitInput, evt)
 {
-	var ch = evt.which || evt.keyCode || evt.key.charCodeAt(0);
+	alert(JSON.stringify(evt, undefined, 2));
 	
-	alert(ch);
+	var ch = evt.which || evt.keyCode || evt.key.charCodeAt(0);
 	
 	if (ch === 8 || ch === 46)	// backspace, delete
 		return unitInput_onKeyPress(eltUnitInput, evt);
