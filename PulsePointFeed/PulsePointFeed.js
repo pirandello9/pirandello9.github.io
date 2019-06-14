@@ -10,17 +10,6 @@ var gLinkCurrAddress = null;
 
 function init()
 {
-	var divPageHeader = document.getElementById("PageHeader");
-	//#############
-	window.onscroll = function()
-	{
-		var divPageHeader = document.getElementById("PageHeader");
-		if (window.pageYOffset > 40) {
-			divPageHeader.classList.add("sticky");
-		} else {
-			divPageHeader.classList.remove("sticky");
-		}
-	};
 	//#############
 	var eltUnitInput = document.getElementById("UnitInput");
 	eltUnitInput.addEventListener("keydown", function(evt) { unitInput_onKeyDown(eltUnitInput, evt); })
@@ -36,35 +25,37 @@ function init()
 	updateTimes();
 	setInterval(updateTimes, 10000);  // once every 10 secs
 	
+	// Header is fixed, so pad the rest of the content (Calls) down to just under the header
+	var divPageHeader = document.getElementById("PageHeader");
 	var divCalls = document.getElementById("Calls");
 	divCalls.style.paddingTop = divPageHeader.offsetHeight + "px";
 	
-	var divCall = addDiv(divCalls, "");
-	divCall.innerText = "Testing..."
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	+ "Now is the time for all good men to come to the aid of their country.  "
-	;
+	//var divCall = addDiv(divCalls, "");
+	//divCall.innerText = "Testing..."
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//+ "Now is the time for all good men to come to the aid of their country.  "
+	//;
 	
-	//refreshData();
+	refreshData();
 }
 
 
@@ -125,6 +116,8 @@ function updatePage()
 	
 	gDivCurrCall = null;
 	gLinkCurrAddress = null;
+	
+	addSpacer(divCalls);
 	
 	for (var i = 0; i < gArrActiveCalls.length; i++)
 	{
@@ -218,9 +211,7 @@ function updatePage()
 			gLinkCurrAddress = linkAddress;
 		}
 		
-		var hr = document.createElement("hr");
-		hr.className = "Spacer";
-		divCalls.appendChild(hr);
+		addSpacer(divCalls);
 	}
 	
 	updateTimes();
@@ -276,6 +267,14 @@ function addDiv(appendInElt, strClasses, strText)
 	if (appendInElt)
 		appendInElt.appendChild(div);
 	return div;
+}
+
+
+function addSpacer(div)
+{
+	var hr = document.createElement("hr");
+	hr.className = "Spacer";
+	div.appendChild(hr);
 }
 
 

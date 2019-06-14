@@ -71,22 +71,13 @@ hr.Spacer {
 
 #PageHeader {
   background-color: #DDDDDD;
-  padding-left:   0.3em;
-  padding-right:  0.3em;
-  padding-top:    0.4em;
-  //margin-bottom: 1.5em;
-}
-
-/* The sticky class is added to the header with JS when it reaches its scroll position */
-.sticky {
+  padding-left: 0.3em;
+  padding-right: 0.3em;
+  padding-top: 0.4em;
+  box-shadow: 0 0.2em 0.2em #999999;
+  width: 91%;
   position: fixed;
-  top: -32px;
-  width: 91%
-}
-
-/* Add some top padding to the page content to prevent sudden quick movement (as the header gets a new position at the top of the page (position:fixed and top:0) */
-.sticky + .content {
-  padding-top: 80px;
+  top: 0;
 }
 
 #UnitInput {
