@@ -396,6 +396,8 @@ function unitInput_onKeyDown(eltUnitInput, evt)
 {
 	var ch = evt.which || evt.keyCode || evt.key.charCodeAt(0);
 	
+	alert(ch);
+	
 	if (ch === 8 || ch === 46)	// backspace, delete
 		return unitInput_onKeyPress(eltUnitInput, evt);
 	else
