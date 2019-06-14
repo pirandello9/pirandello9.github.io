@@ -398,23 +398,25 @@ function unitInput_changed(eltUnitInput, event)
 			eltUnitInput.blur();
 			window.focus();
 			
+			// Special case for iOS Safari: the updatePage() for each keypress doesn't always work (?)
 			updatePage();
 			return;
 		}
 		
-		//// For some reason on iOS Safari, typing doesn't replace currently selected text,
-		//// so special case delete selection for relevent chars
-		//if (ch === 8 || (ch >= 65 && ch <= 90) || (ch >= 48 && ch <= 57))	 // backspace, letters, digits
-		//{
-		//	//console.log("SEL:  %s - %s", eltUnitInput.selectionStart, eltUnitInput.selectionEnd);
-		//
-		//	//save the original cursor position
-		//	var cursorPos = eltUnitInput.selectionStart
-		//	text = text.slice(0, eltUnitInput.selectionStart) + text.slice(eltUnitInput.selectionEnd);
-		//	eltUnitInput.value = text;
-		//	//restore original cursor position
-		//	eltUnitInput.selectionStart = eltUnitInput.selectionEnd = cursorPos
-		//}
+		// Special case for iOS Safari: typing doesn't always replace currently selected text (?),
+		// so manually delete selection for relevent chars
+		if (ch === 8 || (ch >= 65 && ch <= 90) || (ch >= 48 && ch <= 57))	 // backspace, letters, digits
+		{
+			//console.log("SEL:  %s - %s", eltUnitInput.selectionStart, eltUnitInput.selectionEnd);
+			
+			//save the original cursor position
+			var nSelStart = eltUnitInput.selectionStart
+			var strVal = eltUnitInput.value;
+			strVal = strVal.substr(0, nSelStart) + strVal.substr(eltUnitInput.selectionEnd);
+			eltUnitInput.value = strVal;
+			//restore original cursor position
+			eltUnitInput.selectionStart = eltUnitInput.selectionEnd = nSelStart;
+		}
 	}
 	
 	
