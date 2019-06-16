@@ -262,7 +262,8 @@ function getMapUrl(strDest)
 	const kStrDirectionsUrl = "https://www.google.com/maps/dir/?api=1&destination=%s&travelmode=driving";
 	const kStrAppDirectionsUrl = "comgooglemapsurl://www.google.com/maps/dir/?api=1&destination=%s&travelmode=driving";
 	
-	var strUrl = gbOnMobile? kStrAppDirectionsUrl : kStrDirectionsUrl;
+	//var strUrl = gbOnMobile? kStrAppDirectionsUrl : kStrDirectionsUrl;
+	var strUrl = kStrDirectionsUrl;		//#####################################
 	return strUrl.replace("%s", strDest);
 }
 
