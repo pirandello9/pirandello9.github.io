@@ -3,12 +3,28 @@
 const kstrServerUrl = "https://acpulsepoint.herokuapp.com/";
 
 // Global vars
+var gbOnMobile = isOnMobile();
 var gStrLastJson = "";
 var gArrAlerts = [];
 var gArrActiveCalls = [];
 var gDivCurrCall = null;
 var gLinkCurrAddress = null;
 
+
+
+function isOnMobile()
+{
+	var strUserAgent = navigator.userAgent || navigator.vendor || window.opera;
+	
+	// iOS detection from http://stackoverflow.com/a/9039885/177710
+	if (/iPad|iPhone|iPod/.test(strUserAgent) && !window.MSStream)
+		return true;
+
+	if (/android/i.test(strUserAgent))
+		return true;
+	
+	return false;
+}
 
 
 function init()
@@ -542,6 +558,7 @@ function unitInput_saveValue(eltUnitInput, strVal, bRequireValidValue)
 	}
 	document.getElementById("UnitStationLink").href = strMapStationUrl;
 	document.getElementById("MapCallLink").href = strMapCallUrl;
+	alert("gbOnMobile = " + gbOnMobile);
 	
 	localStorage.setItem("currUnit", strCurrUnit);
 	setTimeout(updatePage, 10);
