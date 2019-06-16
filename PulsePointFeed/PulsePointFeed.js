@@ -581,7 +581,7 @@ function unitInput_saveValue(eltUnitInput, strVal, bRequireValidValue)
 
 function DELAYACTION()
 {
-	setTimeout(DELAYEDACTION, 2000);
+	setTimeout(DELAYEDACTION, 10000);
 }
 
 function DELAYEDACTION()
