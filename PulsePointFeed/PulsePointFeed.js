@@ -589,7 +589,8 @@ function DELAYACTION()
 
 function DELAYEDACTION()
 {
-	window.location = getMapUrl("700+Hampshire+St,+San+Francisco,+CA");
+	//window.location = getMapUrl("700+Hampshire+St,+San+Francisco,+CA");
+	window.open(getMapUrl("700+Hampshire+St,+San+Francisco,+CA"));
 }
 
 
