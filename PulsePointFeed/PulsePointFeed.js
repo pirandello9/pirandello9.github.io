@@ -260,7 +260,10 @@ function scrollToCurrCall()
 function getMapUrl(strDest)
 {
 	const kStrDirectionsUrl = "https://www.google.com/maps/dir/?api=1&destination=%s&travelmode=driving";
-	return kStrDirectionsUrl.replace("%s", strDest);
+	const kStrAppDirectionsUrl = "comgooglemapsurl://www.google.com/maps/dir/?api=1&destination=%s&travelmode=driving";
+	
+	var strUrl = gbOnMobile? kStrAppDirectionsUrl : kStrDirectionsUrl;
+	return strUrl.replace("%s", strDest);
 }
 
 
@@ -586,7 +589,7 @@ function DELAYACTION()
 
 function DELAYEDACTION()
 {
-	window.location = "https://www.google.com/maps/place/700+Hampshire+St,+San+Francisco,+CA+94110/@37.7605058,-122.4103924,17z/data=!3m1!4b1!4m5!3m4!1s0x808f7e36b9762575:0x1bb68b9ce7de8985!8m2!3d37.7605058!4d-122.4082037";
+	window.location = getMapUrl("700+Hampshire+St,+San+Francisco,+CA");
 }
 
 
