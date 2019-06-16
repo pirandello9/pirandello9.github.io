@@ -37,6 +37,14 @@ a {
   //height: 1.6em;
 }
 
+.MapCallButton {
+  vertical-align: middle;
+  padding-left: 0.5em;
+  padding-bottom: 0.1em;
+  width: 1.7em;
+  height: 1.7em;
+}
+
 .RefreshButton {
   vertical-align: middle;
   padding-left: 0.1em;

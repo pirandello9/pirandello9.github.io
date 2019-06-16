@@ -193,7 +193,7 @@ function updatePage()
 		
 		var linkAddress = document.createElement("a");
 		linkAddress.className = "Address LeftLeft";
-		linkAddress.href = getMapLink(objIncident.latlong);
+		linkAddress.href = getMapUrl(objIncident.latlong);
 		linkAddress.target = "_blank";
 		linkAddress.onclick = onCallAddressClicked;
 		divCall.appendChild(linkAddress);
@@ -225,7 +225,7 @@ function scrollToCurrCall()
 }
 
 
-function getMapLink(strDest)
+function getMapUrl(strDest)
 {
 	const kStrDirectionsUrl = "https://www.google.com/maps/dir/?api=1&destination=%s&travelmode=driving";
 	return kStrDirectionsUrl.replace("%s", strDest);
@@ -504,7 +504,7 @@ function unitInput_onKeyPress(eltUnitInput, evt)
 		if (strUnitNumber)
 		{
 			var nStationNumber = parseInt(strUnitNumber, 10) % 100;  // just last 2 digits of unit number
-			var strMapAddressUrl = getMapLink("San Jose Fire Department Station " + nStationNumber);
+			var strMapAddressUrl = getMapUrl("San Jose Fire Department Station " + nStationNumber);
 			document.getElementById("UnitStationLink").href = strMapAddressUrl;
 		}
 		
