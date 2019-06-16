@@ -20,6 +20,7 @@ function init()
 	{
 		var eltUnitInput = document.getElementById("UnitInput");
 		eltUnitInput.value = strCurrUnit;
+		unitInput_saveValue(eltUnitInput, strCurrUnit, false);
 	}
 	
 	updateTimes();
@@ -463,7 +464,7 @@ function unitInput_onKeyPress(eltUnitInput, evt)
 	
 	if (bIsBackspaceOrDelete || bIsNumberOrLetter)
 	{
-		var strVal = eltUnitInput.value;
+		var strVal = eltUnitInput.value.toUpperCase();
 		var nSelStart = eltUnitInput.selectionStart;
 		var nSelEnd = eltUnitInput.selectionEnd;
 
@@ -480,38 +481,13 @@ function unitInput_onKeyPress(eltUnitInput, evt)
 			// delete: delete 1 char right of nSelStart
 			strVal = strVal.substr(0, nSelStart) + strVal.substr(nSelStart + 1);
 		
-		strVal = strVal.toUpperCase();
-		
-		var strCurrUnit = null;
-		var strUnitNumber = null;
-		
-		//######## EVENTUALLY MORE VALIDATION? (E.G. RESTRICT TO [ETUS]\d{1,3} and PREVENT LEADING ZERO AFTER LETTER ???)
-		var match = /^[A-Z]{1,3}(\d{0,3})$/.exec(strVal);
-		if (match)
-			[strCurrUnit, strUnitNumber] = match;
-		else if (bIsBackspaceOrDelete)
-			// Allow validation fail only if backspace/delete
-			strCurrUnit = strVal;
-		else
-		{
-			// Otherwise, i.e. for added number/letter, prevent it if it would cause validation fail
-			evt.preventDefault();
-			return false;
-		}
-		
-		//console.log("strCurrUnit = %s  /  strUnitNumber = %s", strCurrUnit, strUnitNumber);
-		
-		if (strUnitNumber)
-		{
-			var nStationNumber = parseInt(strUnitNumber, 10) % 100;  // just last 2 digits of unit number
-			var strMapAddressUrl = getMapUrl("San Jose Fire Department Station " + nStationNumber);
-			document.getElementById("UnitStationLink").href = strMapAddressUrl;
-		}
-		
-		localStorage.setItem("currUnit", strCurrUnit);
-		setTimeout(updatePage, 10);
-		//setTimeout(scrollToCurrCall, 20);
-		return true;
+		var bRequireValidValue = !bIsBackspaceOrDelete;  // allow validation fail only if backspace/delete
+		if (unitInput_saveValue(eltUnitInput, strVal, bRequireValidValue))
+			return true;
+
+		// The added number/letter causes validation fail, so prevent the keypress
+		evt.preventDefault();
+		return false;
 	}
 	else if (ch === 13)
 	{
@@ -532,6 +508,43 @@ function unitInput_onKeyPress(eltUnitInput, evt)
 		return false;
 	}
 	// NOTE: No need to check for any cursor-movement keys here, as they don't generate onKeyPress events
+}
+
+
+function unitInput_saveValue(eltUnitInput, strVal, bRequireValidValue)
+{
+	strVal = strVal.toUpperCase();
+	
+	var strCurrUnit = null;
+	var strUnitNumber = null;
+	
+	//######## EVENTUALLY MORE VALIDATION? (E.G. RESTRICT TO [ETUS]\d{1,3} and PREVENT LEADING ZERO AFTER LETTER ???)
+	var match = /^[A-Z]{1,3}(\d{0,3})$/.exec(strVal);
+	if (match)
+		[strCurrUnit, strUnitNumber] = match;
+	else if (bRequireValidValue)
+		return false
+	else // (!bRequireValidValue)
+		strCurrUnit = strVal;		// accept value even though it fails validation
+	
+	//console.log("strCurrUnit = %s  /  strUnitNumber = %s", strCurrUnit, strUnitNumber);
+	
+	var strMapStationUrl = "";
+	var strMapCallUrl = "";
+	if (strUnitNumber)
+	{
+		var nStationNumber = parseInt(strUnitNumber, 10) % 100;  // just last 2 digits of unit number
+		strMapStationUrl = getMapUrl("San Jose Fire Department Station " + nStationNumber);
+		strMapCallUrl = "/mapcall?unit=" + strCurrUnit;
+	}
+	document.getElementById("UnitStationLink").href = strMapStationUrl;
+	document.getElementById("MapCallLink").href = strMapCallUrl;
+	//console.log(document.getElementById("MapCallLink").href);
+	
+	localStorage.setItem("currUnit", strCurrUnit);
+	setTimeout(updatePage, 10);
+	//setTimeout(scrollToCurrCall, 20);
+	return true;
 }
 
 
