@@ -1,4 +1,7 @@
 
+// Global consts
+const kstrServerUrl = "https://acpulsepoint.herokuapp.com/";
+
 // Global vars
 var gStrLastJson = "";
 var gArrAlerts = [];
@@ -367,7 +370,7 @@ function refreshData()
 		objReq.addEventListener("load", onDataReceived);
 		//objReq.open("GET", "https://script.google.com/macros/s/AKfycbwAN-d88IGiGX6t7ddHp2pidzzfco6JjWKawzp-hAhrEHwxMI5J/exec");
 		//objReq.open("GET", "http://localhost:4000/");
-		objReq.open("GET", "https://acpulsepoint.herokuapp.com/");
+		objReq.open("GET", kstrServerUrl);
 		objReq.send();
 	}
 }
@@ -535,7 +538,7 @@ function unitInput_saveValue(eltUnitInput, strVal, bRequireValidValue)
 	{
 		var nStationNumber = parseInt(strUnitNumber, 10) % 100;  // just last 2 digits of unit number
 		strMapStationUrl = getMapUrl("San Jose Fire Department Station " + nStationNumber);
-		strMapCallUrl = "/mapcall?unit=" + strCurrUnit;
+		strMapCallUrl = kstrServerUrl + "mapcall?unit=" + strCurrUnit;
 	}
 	document.getElementById("UnitStationLink").href = strMapStationUrl;
 	document.getElementById("MapCallLink").href = strMapCallUrl;
