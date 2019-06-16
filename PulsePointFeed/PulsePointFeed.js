@@ -539,11 +539,9 @@ function unitInput_saveValue(eltUnitInput, strVal, bRequireValidValue)
 		var nStationNumber = parseInt(strUnitNumber, 10) % 100;  // just last 2 digits of unit number
 		strMapStationUrl = getMapUrl("San Jose Fire Department Station " + nStationNumber);
 		strMapCallUrl = kstrServerUrl + "mapcall?unit=" + strCurrUnit;
-		strMapCallUrl = "javascript:DELAYPOPUP()";	//#############TESTING
 	}
 	document.getElementById("UnitStationLink").href = strMapStationUrl;
 	document.getElementById("MapCallLink").href = strMapCallUrl;
-	//console.log(document.getElementById("MapCallLink").href);
 	
 	localStorage.setItem("currUnit", strCurrUnit);
 	setTimeout(updatePage, 10);
@@ -551,16 +549,6 @@ function unitInput_saveValue(eltUnitInput, strVal, bRequireValidValue)
 	return true;
 }
 
-function DELAYPOPUP()
-{
-	setTimeout(DELAYEDPOPUP, 2000);
-}
-
-function DELAYEDPOPUP()
-{
-	//alert('in DELAYEDPOPUP');
-	window.open('', '_blank');
-}
 
 function clickElement(elt)
 {
