@@ -39,10 +39,10 @@ a {
 
 .MapCallButton {
   vertical-align: middle;
-  padding-left: 0.5em;
+  padding-left: 0.9em;
   padding-bottom: 0.1em;
-  width: 1.7em;
-  height: 1.7em;
+  width: 2em;
+  height: 2em;
 }
 
 .RefreshButton {
