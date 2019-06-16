@@ -589,6 +589,14 @@ function DELAYACTION()
 	objReq.open("GET", kstrServerUrl + "mapcall?unit=E33", false);  // 'false' makes the request synchronous
 	objReq.send();
 	
+	objReq = new XMLHttpRequest();
+	objReq.open("GET", kstrServerUrl + "mapcall?unit=E33", false);  // 'false' makes the request synchronous
+	objReq.send();
+	
+	objReq = new XMLHttpRequest();
+	objReq.open("GET", kstrServerUrl + "mapcall?unit=E33", false);  // 'false' makes the request synchronous
+	objReq.send();
+	
 //	setTimeout(DELAYEDACTION, 10000);
 //}
 //
