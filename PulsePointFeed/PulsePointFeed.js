@@ -12,21 +12,6 @@ var gLinkCurrAddress = null;
 
 
 
-function isOnMobile()
-{
-	var strUserAgent = navigator.userAgent || navigator.vendor || window.opera;
-	
-	// iOS detection from http://stackoverflow.com/a/9039885/177710
-	if (/iPad|iPhone|iPod/.test(strUserAgent) && !window.MSStream)
-		return true;
-
-	if (/android/i.test(strUserAgent))
-		return true;
-	
-	return false;
-}
-
-
 function init()
 {
 	//#############
@@ -40,6 +25,14 @@ function init()
 		var eltUnitInput = document.getElementById("UnitInput");
 		eltUnitInput.value = strCurrUnit;
 		unitInput_saveValue(eltUnitInput, strCurrUnit, false);
+	}
+	
+	if (gbOnMobile)
+	{
+		// Since map links open the map app on mobile, remove target="_blank" attribute
+		// to avoid unnecessarily opening a new tab
+		document.getElementById("UnitStationLink").removeAttribute("target");
+		document.getElementById("MapCallLink").removeAttribute("target");
 	}
 	
 	updateTimes();
@@ -76,6 +69,21 @@ function init()
 	//;
 	
 	refreshData();
+}
+
+
+function isOnMobile()
+{
+	var strUserAgent = navigator.userAgent || navigator.vendor || window.opera;
+	
+	// iOS detection from http://stackoverflow.com/a/9039885/177710
+	if (/iPad|iPhone|iPod/.test(strUserAgent) && !window.MSStream)
+		return true;
+
+	if (/android/i.test(strUserAgent))
+		return true;
+	
+	return false;
 }
 
 
@@ -214,8 +222,12 @@ function updatePage()
 		var linkAddress = document.createElement("a");
 		linkAddress.className = "Address LeftLeft";
 		linkAddress.href = getMapUrl(objIncident.latlong);
-		linkAddress.target = "_blank";
 		linkAddress.onclick = onCallAddressClicked;
+		// Since map links open the map app on mobile, exclude target="_blank" attribute
+		// to avoid unnecessarily opening a new tab
+		if (!gbOnMobile)
+			linkAddress.target = "_blank";
+		
 		divCall.appendChild(linkAddress);
 		if (objIncident.placeName || objIncident.public)
 		{
@@ -558,7 +570,6 @@ function unitInput_saveValue(eltUnitInput, strVal, bRequireValidValue)
 	}
 	document.getElementById("UnitStationLink").href = strMapStationUrl;
 	document.getElementById("MapCallLink").href = strMapCallUrl;
-	alert("gbOnMobile = " + gbOnMobile);
 	
 	localStorage.setItem("currUnit", strCurrUnit);
 	setTimeout(updatePage, 10);
