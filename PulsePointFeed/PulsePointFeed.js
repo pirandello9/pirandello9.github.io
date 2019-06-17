@@ -556,7 +556,7 @@ function unitInput_saveValue(eltUnitInput, strVal, bRequireValidValue)
 function awaitAndMapCallForUnit()
 {
 	animateRefresh(true);
-	setTimeout(awaitAndMapCallForUnit2, 10);
+	setTimeout(awaitAndMapCallForUnit2, 100);
 }
 
 function awaitAndMapCallForUnit2()
