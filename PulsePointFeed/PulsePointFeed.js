@@ -1,6 +1,7 @@
 
 // Global consts
 const kstrServerUrl = "https://acpulsepoint.herokuapp.com/";
+const kstrDataUrl = kstrServerUrl;
 
 // Global vars
 var gbOnMobile = isOnMobile();
@@ -8,7 +9,7 @@ var gStrLastJson = "";
 var gArrAlerts = [];
 var gArrActiveCalls = [];
 var gDivCurrCall = null;
-var gLinkCurrAddress = null;
+var gstrCurrCallMapUrl = null;
 
 
 
@@ -31,42 +32,17 @@ function init()
 	{
 		// Since map links open the map app on mobile, remove target="_blank" attribute
 		// to avoid unnecessarily opening a new tab
-		document.getElementById("UnitStationLink").removeAttribute("target");
+		document.getElementById("MapStationLink").removeAttribute("target");
 		document.getElementById("MapCallLink").removeAttribute("target");
 	}
 	
 	updateTimes();
 	setInterval(updateTimes, 10000);  // once every 10 secs
 	
-	// Header is fixed, so pad the rest of the content (Calls) down to just under the header
+	// Header is floating fixed, so pad the rest of the content (Calls) down to just below header
 	var divPageHeader = document.getElementById("PageHeader");
 	var divCalls = document.getElementById("Calls");
 	divCalls.style.paddingTop = divPageHeader.offsetHeight + "px";
-	
-	//var divCall = addDiv(divCalls, "");
-	//divCall.innerText = "Testing..."
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//+ "Now is the time for all good men to come to the aid of their country.  "
-	//;
 	
 	refreshData();
 }
@@ -135,6 +111,9 @@ function updateTimes()
 
 function updatePage()
 {
+	const knNewCallAgeMillis = 4 * 60000;		// consider call "new" if < 4 minutes old
+	
+	var nNowMillis = (new Date()).getTime();
 	var strCurrUnit = document.getElementById("UnitInput").value.toUpperCase();
 	var divCalls = document.getElementById("Calls");
 	
@@ -142,8 +121,10 @@ function updatePage()
 	while (divCalls.firstChild)
 		divCalls.removeChild(divCalls.firstChild);
 	
-	gDivCurrCall = null;
-	gLinkCurrAddress = null;
+	var divCurrCall = null;
+	var strCurrCallMapUrl = null;
+	var divMaybeCurrCall = null;
+	var strMaybeCurrCallMapUrl = null;
 	
 	addSpacer(divCalls);
 	
@@ -164,6 +145,7 @@ function updatePage()
 		//</div>
 		
 		// Compose the text...
+		var callTime = new Date(objIncident.time);
 		var strTypeCode = objIncident.type || "unk";
 		var strTypeImageUrl = "https://web.pulsepoint.org/assets/images/list/" + strTypeCode.toLowerCase() + "_list.png";
 		
@@ -193,18 +175,22 @@ function updatePage()
 				if (objUnit.status === "DP")
 					strUnit = '<span class="EnRoute">' + strUnit + '</span>';
 				else if (objUnit.status === "TR")
-					strUnit += "&raquo;&#10010;";   // double right angle-bracket + thick cross (for "transporting")
+					strUnit += '&ctdot;<img class="TransportIcon" src="PulsePointFeed/TransportIcon.png" />'
 				
 				strUnits += strUnit
 			}
 		}
+		
+		var bNoUnits = !strUnits;
+		if (bNoUnits)
+			strUnits = "???";
 		
 		var strUnitsEtc = '<span class="Units">' + strUnits + '</span>';
 		if (objIncident.firstDue)
 			strUnitsEtc += " (" + objIncident.firstDue + "&rsquo;s)";
 		
 		// Create and insert the elements...
-		var divCall = addDiv(divCalls, (bIncludesCurrUnit? "Call CurrCall" : "Call"));
+		var divCall = addDiv(divCalls, "Call");
 		
 		var divTypeAndTime = addDiv(divCall, "LeftRight");
 		var divType = addDiv(divTypeAndTime, "Deemphasize", strCallType);
@@ -212,16 +198,17 @@ function updatePage()
 		imgType.className = "CallTypeIcon";
 		imgType.src = strTypeImageUrl;
 		divType.insertBefore(imgType, divType.firstChild);
-		addDiv(divTypeAndTime, "RelTime", "-").time = new Date(objIncident.time);
+		addDiv(divTypeAndTime, "RelTime", "-").time = callTime;
 		
 		//if (objIncident.cmd)
 		//  addDiv(divCall, null, objIncident.cmd);
 		
 		addDiv(divCall, "UnitsEtc", strUnitsEtc);
 		
+		var strMapCallUrl = getMapUrl(objIncident.latlong);
 		var linkAddress = document.createElement("a");
 		linkAddress.className = "Address LeftLeft";
-		linkAddress.href = getMapUrl(objIncident.latlong);
+		linkAddress.href = strMapCallUrl;
 		linkAddress.onclick = onCallAddressClicked;
 		// Since map links open the map app on mobile, exclude target="_blank" attribute
 		// to avoid unnecessarily opening a new tab
@@ -239,12 +226,23 @@ function updatePage()
 		
 		if (bIncludesCurrUnit)
 		{
-			gDivCurrCall = divCall;
-			gLinkCurrAddress = linkAddress;
+			divCurrCall = divCall;
+			strCurrCallMapUrl = strMapCallUrl;
+		}
+		else if (bNoUnits && ((nNowMillis - callTime.getTime()) < knNewCallAgeMillis))
+		{
+			divMaybeCurrCall = divCall;
+			strMaybeCurrCallMapUrl = strMapCallUrl;
 		}
 		
 		addSpacer(divCalls);
 	}
+	
+	gDivCurrCall = divCurrCall || divMaybeCurrCall;
+	gstrCurrCallMapUrl = strCurrCallMapUrl || strMaybeCurrCallMapUrl;
+	
+	if (gDivCurrCall)
+		gDivCurrCall.className += " CurrCall";
 	
 	updateTimes();
 }
@@ -253,7 +251,7 @@ function updatePage()
 function scrollToCurrCall()
 {
 	if (gDivCurrCall)
-		gDivCurrCall.scrollIntoView({behavior: "smooth", block: "end", inline: "start"});
+		gDivCurrCall.scrollIntoView({behavior: "smooth", block: "start", inline: "start"});
 }
 
 
@@ -277,19 +275,6 @@ function onCallAddressClicked()
 	localStorage.setItem("lastCallAddressClicked", this.href);
 	
 	return true; // continue with default handling of event
-}
-
-
-function updateRefreshedTime()
-{
-	var now = new Date();
-	//var options = { timeZone:'America/Los_Angeles' };
-	var options = {hour: 'numeric', minute: '2-digit', hour12: 'true'};
-	var strDateTime = now.toLocaleTimeString("en-US", options);
-	strDateTime = strDateTime.replace(/ \b([AP]M)\b/i, "$1").toLowerCase();
-	
-	var eltRefreshedTime = document.getElementById("RefreshedTime");
-	eltRefreshedTime.innerText = strDateTime;
 }
 
 
@@ -320,7 +305,7 @@ function refreshData()
 	console.log("Requesting pulsepoint data...");
 	
 	
-	var TESTING = false;
+	var TESTING = true;
 	
 	//############### FOR TESTING... ###################
 	if (TESTING)
@@ -339,16 +324,13 @@ function refreshData()
 					]
 				},
 				{
-					"time": "2019-06-04T04:17:30Z",
+					"time": "2019-06-17T03:18:30Z",
 					"type": "PS",
 					"typeName": "Public Service",
 					"latlong": "37.3436547778,-121.8375635556",
 					"address": "Story Rd & Hopkins Dr",
 					"public": true,
-					"units": [
-						{"id": "E16", "status": "OS"},
-						{"id": "T16", "status": "OS"}
-					]
+					"units": []
 				},
 				{
 					"time": "2019-06-04T04:15:27Z",
@@ -394,32 +376,27 @@ function refreshData()
 			]
 		};
 		
-		onDataReceived(JSON.stringify(objResponse));
+		updateWithReceivedData(JSON.stringify(objResponse));
 	}
 	else
 	{
 		var objReq = new XMLHttpRequest();
-		objReq.addEventListener("load", onDataReceived);
+		objReq.addEventListener("load", updateWithReceivedData);
 		//objReq.open("GET", "https://script.google.com/macros/s/AKfycbwAN-d88IGiGX6t7ddHp2pidzzfco6JjWKawzp-hAhrEHwxMI5J/exec");
 		//objReq.open("GET", "http://localhost:4000/");
-		objReq.open("GET", kstrServerUrl);
+		objReq.open("GET", kstrDataUrl);
 		objReq.send();
 	}
 }
 
 
-function onDataReceived()
+function updateWithReceivedData(strResponseJson)
 {
+	if (!strResponseJson)
+		strResponseJson = this.responseText;
+	
 	animateRefresh(false);
-	
-	//var strResponseJson = this.responseText;
-	var strResponseJson = this.responseText || arguments[0];  //########### FOR TESTING
-	//console.log(strResponseJson);
-	
-	//updateRefreshedTime();
-	var eltRefreshedTime = document.getElementById("RefreshedTime");
-	eltRefreshedTime.time = new Date();
-	updateTimes();
+	document.getElementById("RefreshedTime").time = new Date();
 
 	if (strResponseJson === gStrLastJson)
 		console.log("Received same as current data from pulsepoint");
@@ -439,9 +416,6 @@ function onDataReceived()
 	}
 	
 	scrollToCurrCall();
-	
-	if (gLinkCurrAddress && (gLinkCurrAddress.href !== localStorage.getItem("lastCallAddressClicked")))
-		clickElement(gLinkCurrAddress);
 }
 
 
@@ -471,7 +445,7 @@ function unitInput_onFocus(eltUnitInput)
 function unitInput_onBlur(eltUnitInput)
 {
 	// To hilite the current call (in case it didn't update while editing the input)
-	setTimeout(updatePage, 10);
+	setTimeout(updatePage, 100);
 }
 
 
@@ -532,7 +506,7 @@ function unitInput_onKeyPress(eltUnitInput, evt)
 		window.focus();
 		
 		// Note: updatePage will happen here via unitInput_onBlur
-		setTimeout(scrollToCurrCall, 20);
+		setTimeout(scrollToCurrCall, 150);
 		evt.preventDefault();
 		return false;
 	}
@@ -565,54 +539,53 @@ function unitInput_saveValue(eltUnitInput, strVal, bRequireValidValue)
 	//console.log("strCurrUnit = %s  /  strUnitNumber = %s", strCurrUnit, strUnitNumber);
 	
 	var strMapStationUrl = "";
-	var strMapCallUrl = "";
 	if (strUnitNumber)
 	{
 		var nStationNumber = parseInt(strUnitNumber, 10) % 100;  // just last 2 digits of unit number
 		strMapStationUrl = getMapUrl("San Jose Fire Department Station " + nStationNumber);
-		strMapCallUrl = kstrServerUrl + "mapcall?unit=" + strCurrUnit;
-		strMapCallUrl = "javascript:DELAYACTION()"; //#################TESTING
 	}
-	document.getElementById("UnitStationLink").href = strMapStationUrl;
-	document.getElementById("MapCallLink").href = strMapCallUrl;
+	document.getElementById("MapStationLink").href = strMapStationUrl;
 	
 	localStorage.setItem("currUnit", strCurrUnit);
-	setTimeout(updatePage, 10);
-	//setTimeout(scrollToCurrCall, 20);
+	setTimeout(updatePage, 100);
+	//setTimeout(scrollToCurrCall, 150);
 	return true;
 }
 
 
-function DELAYACTION()
+// Do synchronous requests in order to "connect" redirect/popup to user's click (and thus avoid redirect/popup-blocking)
+function awaitAndMapCallForUnit()
 {
-	var objReq = new XMLHttpRequest();
-	objReq.open("GET", kstrServerUrl + "mapcall?unit=E33", false);  // 'false' makes the request synchronous
-	objReq.send();
-	
-	objReq = new XMLHttpRequest();
-	objReq.open("GET", kstrServerUrl + "mapcall?unit=E33", false);  // 'false' makes the request synchronous
-	objReq.send();
-	
-	objReq = new XMLHttpRequest();
-	objReq.open("GET", kstrServerUrl + "mapcall?unit=E33", false);  // 'false' makes the request synchronous
-	objReq.send();
-	
-//	setTimeout(DELAYEDACTION, 10000);
-//}
-//
-//function DELAYEDACTION()
-//{
-	window.location = getMapUrl("700+Hampshire+St,+San+Francisco,+CA");
+	animateRefresh(true);
+	setTimeout(awaitAndMapCallForUnit2, 10);
 }
 
-
-function clickElement(elt)
+function awaitAndMapCallForUnit2()
 {
-	elt.focus();
-	elt.click();
-	var objEvent = document.createEvent("HTMLEvents");
-	objEvent.initEvent("click", false, true);
-	elt.dispatchEvent(objEvent);
-	elt.blur();
+  const knWaitBetweenRequestsMillisec = 5000;   // 5 seconds
+  //const knTimeoutMillisec = 60000;              // 60 seconds
+  const knTimeoutMillisec = 10000;              // 10 seconds #################### FOR TESTING
+  const kstrWaitUrl = kstrServerUrl + "wait?m=" + knWaitBetweenRequestsMillisec;
+  
+  var nTimeoutTime = (new Date()).getTime() + knTimeoutMillisec;
+	while (!gDivCurrCall && (new Date()).getTime() < nTimeoutTime)
+	{
+		animateRefresh(true);
+		var objReq = new XMLHttpRequest();
+		objReq.open("GET", kstrDataUrl, false);  // 'false' makes the request synchronous
+		objReq.send();
+		updateWithReceivedData(objReq.responseText);
+		var TEST = document.getElementById("Calls").offsetHeight;
+		TEST = window.getComputedStyle(document.getElementById("Calls"));
+		
+		animateRefresh(true);
+		objReq = new XMLHttpRequest();
+		objReq.open("GET", kstrWaitUrl, false);  // 'false' makes the request synchronous
+		objReq.send();
+	}
+	
+	animateRefresh(false);
+	if (gDivCurrCall)
+		window.location.href = gstrCurrCallMapUrl;
 }
 

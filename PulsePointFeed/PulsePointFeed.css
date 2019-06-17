@@ -26,20 +26,17 @@ a {
   padding-top: 0.15em;
 }
 
-.UnitLinkButton {
+.MapStationButton {
   vertical-align: middle;
   padding-left: 0.1em;
-  padding-bottom: 0.2em;
-  width: 1.5em;
-  height: 1.1em;
-  //padding-bottom: 0.2em;
-  //width: 1.6em;
-  //height: 1.6em;
+  margin-bottom: 0.3em;
+  width: 2em;
+  height: 1.7em;
 }
 
 .MapCallButton {
   vertical-align: middle;
-  margin-left: 0.9em;
+  margin-left: 0.7em;
   padding-bottom: 0.1em;
   width: 2em;
   height: 2em;
@@ -60,6 +57,14 @@ a {
   //padding-bottom: 0.1em;
   width: 1.9em;
   height: 1.9em;
+}
+
+.TransportIcon {
+  vertical-align: bottom;
+  padding-left: 0.1em;
+  margin-bottom: 0.25em;
+  width: 0.85em;
+  height: 0.85em;
 }
 
 .RelTime {
@@ -92,11 +97,13 @@ hr.Spacer {
 
 #UnitInput {
   background-color: #DDDDDD;
+  margin-top: 0.2em;
   margin-bottom: 0.5em;
 }
 
 div.Call {
-  padding-right:  0.3em;
+  padding-left:   0.25em;
+  padding-right:  0.35em;
   padding-top:    0.4em;
   padding-bottom: 0.7em;
   //margin-bottom:  1em;
