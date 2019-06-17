@@ -305,7 +305,7 @@ function refreshData()
 	console.log("Requesting pulsepoint data...");
 	
 	
-	var TESTING = true;
+	var TESTING = false;
 	
 	//############### FOR TESTING... ###################
 	if (TESTING)
@@ -392,8 +392,7 @@ function refreshData()
 
 function updateWithReceivedData(strResponseJson)
 {
-	if (!strResponseJson)
-		strResponseJson = this.responseText;
+	strResponseJson = this.responseText || strResponseJson;
 	
 	animateRefresh(false);
 	document.getElementById("RefreshedTime").time = new Date();
@@ -563,8 +562,8 @@ function awaitAndMapCallForUnit()
 function awaitAndMapCallForUnit2()
 {
   const knWaitBetweenRequestsMillisec = 5000;   // 5 seconds
-  //const knTimeoutMillisec = 60000;              // 60 seconds
-  const knTimeoutMillisec = 10000;              // 10 seconds #################### FOR TESTING
+  const knTimeoutMillisec = 60000;              // 60 seconds
+  //const knTimeoutMillisec = 10000;              // 10 seconds #################### FOR TESTING
   const kstrWaitUrl = kstrServerUrl + "wait?m=" + knWaitBetweenRequestsMillisec;
   
   var nTimeoutTime = (new Date()).getTime() + knTimeoutMillisec;
@@ -575,8 +574,8 @@ function awaitAndMapCallForUnit2()
 		objReq.open("GET", kstrDataUrl, false);  // 'false' makes the request synchronous
 		objReq.send();
 		updateWithReceivedData(objReq.responseText);
-		var TEST = document.getElementById("Calls").offsetHeight;
-		TEST = window.getComputedStyle(document.getElementById("Calls"));
+		//var TEST = document.getElementById("Calls").offsetHeight;
+		//TEST = window.getComputedStyle(document.getElementById("Calls"));
 		
 		animateRefresh(true);
 		objReq = new XMLHttpRequest();
