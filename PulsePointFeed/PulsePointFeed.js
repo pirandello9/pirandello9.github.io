@@ -48,7 +48,14 @@ function init()
 	divCalls.style.paddingTop = divPageHeader.offsetHeight + "px";
 	
 	if (bMapToCurrCall)
-		awaitAndMapCallForUnit();
+	{
+		animateRefresh(true);
+		var objReq = new XMLHttpRequest();
+		objReq.open("GET", kstrDataUrl, false);  // 'false' makes the request synchronous
+		objReq.send();
+		updateWithReceivedData(objReq.responseText);
+		setTimeout(awaitAndMapCallForUnit, 10);
+	}
 	else
 		refreshData();
 }
