@@ -18,7 +18,7 @@ function init()
 	//############### FOR TESTING... ################
 	//window.location.assign(getMapUrl("San Jose Fire Department Station 34"));
 	//window.location.assign("comgooglemapsurl://www.google.com/maps/dir/?api=1&destination=700+Hampshire+St&travelmode=driving");
-	window.location.assign("comgooglemaps://?daddr=700+Hampshire+St&directionsmode=driving");
+	//window.location.assign("comgooglemaps://?daddr=700+Hampshire+St&directionsmode=driving");
 	//############### FOR TESTING... ################
 	
 	
