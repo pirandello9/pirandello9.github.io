@@ -16,7 +16,8 @@ var gstrCurrCallMapUrl = null;
 function init()
 {
 	//############### FOR TESTING... ################
-	window.location.assign(getMapUrl("San Jose Fire Department Station 34"));
+	//window.location.assign(getMapUrl("San Jose Fire Department Station 34"));
+	window.location.assign("comgooglemapsurl://www.google.com/maps/dir/?api=1&destination=700+Hampshire+St&travelmode=driving");
 	//############### FOR TESTING... ################
 	
 	
