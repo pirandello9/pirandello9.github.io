@@ -559,10 +559,10 @@ function unitInput_saveValue(eltUnitInput, strVal, bRequireValidValue)
 // Do synchronous requests in order to "connect" redirect/popup to user's click (and thus avoid redirect/popup-blocking)
 function awaitAndMapCallForUnit()
 {
-	refreshData(awaitAndMapCallForUnit3);
+	//refreshData(awaitAndMapCallForUnit3);
 	
-	//animateRefresh(true);
-	//setTimeout(awaitAndMapCallForUnit2, 100);
+	animateRefresh(true);
+	setTimeout(awaitAndMapCallForUnit2, 100);
 }
 function awaitAndMapCallForUnit3()
 {
