@@ -50,10 +50,10 @@ function init()
 	setInterval(updateTimes, 10000);  // once every 10 secs
 	
 	// Header is floating fixed, so pad the rest of the content (Calls) down to just below header
-	var nPageHeaderHeight = document.getElementById("PageHeader").offsetHeight;
-	var divCalls = document.getElementById("Calls");
-	divCalls.style.paddingTop = (nPageHeaderHeight + 20) + "px";
-	divCalls.style.marginTop = "-" + nPageHeaderHeight + "px";
+	//var nPageHeaderHeight = document.getElementById("PageHeader").offsetHeight;
+	//var divCalls = document.getElementById("Calls");
+	//divCalls.style.paddingTop = (nPageHeaderHeight + 20) + "px";
+	//divCalls.style.marginTop = "-" + nPageHeaderHeight + "px";
 	
 	//var divHeadingSpacer = document.getElementById("HeadingSpacer");
 	//divHeadingSpacer.style.height = nPageHeaderHeight + "px";
@@ -151,7 +151,7 @@ function updatePage()
 	var divMaybeCurrCall = null;
 	var strMaybeCurrCallMapUrl = null;
 	
-	addSpacer(divCalls);
+	//addSpacer(divCalls);
 	
 	for (var i = 0; i < gArrActiveCalls.length; i++)
 	{
