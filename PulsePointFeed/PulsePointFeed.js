@@ -15,6 +15,9 @@ var gstrCurrCallMapUrl = null;
 
 function init()
 {
+	var objUrlParams = new URLSearchParams(window.location.search);
+	var bMapToCurrCall = objUrlParams.get("mapcall");
+	
 	//#############
 	//var eltUnitInput = document.getElementById("UnitInput");
 	//eltUnitInput.addEventListener("keydown", function(evt) { unitInput_onKeyDown(eltUnitInput, evt); })
@@ -44,7 +47,8 @@ function init()
 	var divCalls = document.getElementById("Calls");
 	divCalls.style.paddingTop = divPageHeader.offsetHeight + "px";
 	
-	refreshData();
+	//refreshData();
+	refreshData(bMapToCurrCall? awaitAndMapCallForUnit : null);
 }
 
 
