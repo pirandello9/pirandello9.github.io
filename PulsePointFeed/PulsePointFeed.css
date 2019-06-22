@@ -121,6 +121,7 @@ hr.Spacer {
   box-shadow: 0 0.2em 0.2em #999999;
   width: 91%;
   position: fixed;
+  z-index: 99;
   top: 0;
 }
 
