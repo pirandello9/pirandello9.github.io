@@ -565,45 +565,6 @@ function awaitAndMapCallForUnit()
 	animateRefresh(true);
 	setTimeout(awaitAndMapCallForUnit2, 100);
 }
-function awaitAndMapCallForUnit3()
-{
-	objReq = new XMLHttpRequest();
-	objReq.open("GET", kstrServerUrl + "wait?m=4000", false);  // 'false' makes the request synchronous
-	objReq.send();
-	refreshData(awaitAndMapCallForUnit4);
-}
-function awaitAndMapCallForUnit4()
-{
-	objReq = new XMLHttpRequest();
-	objReq.open("GET", kstrServerUrl + "wait?m=4000", false);  // 'false' makes the request synchronous
-	objReq.send();
-	refreshData(awaitAndMapCallForUnit5);
-}
-function awaitAndMapCallForUnit5()
-{
-	objReq = new XMLHttpRequest();
-	objReq.open("GET", kstrServerUrl + "wait?m=4000", false);  // 'false' makes the request synchronous
-	objReq.send();
-	refreshData(awaitAndMapCallForUnit6);
-}
-function awaitAndMapCallForUnit6()
-{
-	window.location.href = getMapUrl("San Jose Fire Department Station 34");
-}
-
-
-function showModal(strModalID)
-{
-	document.getElementById("ModalOverlay").style.display = "flex";
-	document.getElementById(strModalID).style.display = "block";
-
-}
-
-function hideModal(strModalID)
-{
-	document.getElementById("ModalOverlay").style.display = "none";
-	document.getElementById(strModalID).style.display = "none";
-}
 
 
 function awaitAndMapCallForUnit2()
@@ -636,5 +597,19 @@ function awaitAndMapCallForUnit2()
 	window.location.href = getMapUrl("San Jose Fire Department Station 34");	//############## FOR TESTING
 	
 	setTimeout(function() { hideModal("WaitCallModal"); }, 100);
+}
+
+
+function showModal(strModalID)
+{
+	document.getElementById("ModalOverlay").style.display = "flex";
+	document.getElementById(strModalID).style.display = "block";
+
+}
+
+function hideModal(strModalID)
+{
+	document.getElementById("ModalOverlay").style.display = "none";
+	document.getElementById(strModalID).style.display = "none";
 }
 
