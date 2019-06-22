@@ -560,7 +560,8 @@ function unitInput_saveValue(eltUnitInput, strVal, bRequireValidValue)
 function awaitAndMapCallForUnit()
 {
 	//refreshData(awaitAndMapCallForUnit3);
-	
+	document.getElementById("WaitCallModal").removeAttribute("open");
+	document.getElementById("WaitCallModal").showModal();
 	animateRefresh(true);
 	setTimeout(awaitAndMapCallForUnit2, 100);
 }
