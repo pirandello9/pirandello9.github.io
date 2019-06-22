@@ -28,10 +28,14 @@
     </div>
     
     <div id="PageHeader" class="LeftRight">
+        <a href="javascript:refreshData();">
+      <div class="LastRefreshed Deemphasize">
+          Last refreshed <br/><span id="RefreshedTime">...</span>
+          <img id="RefreshButton" class="RefreshButton" src="PulsePointFeed/RefreshButton.gif" />
+      </div>
+        </a>
       <div>
         <h1 style="margin-top: 0; margin-bottom: 0; ">
-          <span class="Deemphasize">Current unit:</span>
-          <br />
           <input id="UnitInput" type="text" style="text-transform: uppercase;" name="Unit" size="4"
             value=""
             onFocus="unitInput_onFocus(this)"
@@ -42,21 +46,18 @@
           <a id="MapStationLink" target="_blank" href="">
             <img class="MapStationButton" src="PulsePointFeed/StationIcon.png" />
           </a>
-          <a id="MapCallLink" target="_blank" href="javascript:awaitAndMapCallForUnit()">
-            <img class="MapCallButton" src="PulsePointFeed/MapIcon.png" />
-          </a>
         </h1>
-      </div>
-      <div class="LastRefreshed Deemphasize">
-        <a href="javascript:refreshData();">
-          Last refreshed <br/><span id="RefreshedTime">...</span>
-          <img id="RefreshButton" class="RefreshButton" src="PulsePointFeed/RefreshButton.gif" />
-        </a>
       </div>
     </div>
     
     <div id="Calls" class="content">
     </div>
     
+    <a id="MapCallLink" target="_blank" href="javascript:awaitAndMapCallForUnit()">
+      <div id="MapCallFooter">
+        <img class="MapCallButton" src="PulsePointFeed/MapIcon.png" />
+      </div>
+    </a>
+
   </body>
 </html>

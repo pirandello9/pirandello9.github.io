@@ -326,7 +326,7 @@ function refreshData(fcnAfterComplete)
 	console.log("Requesting pulsepoint data...");
 	
 	
-	var TESTING = false;
+	var TESTING = true;
 	
 	//############### FOR TESTING... ################
 	if (TESTING)

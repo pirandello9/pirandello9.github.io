@@ -8,7 +8,7 @@ html, body {
   border: 0 none;
 }
 
-h1, h1 input {
+h1, h1 {
   font-size: 110%;
   font-weight: bold;
 }
@@ -51,23 +51,23 @@ a {
 
 .LastRefreshed {
   font-size: 96%;
-  padding-top: 0.15em;
+  padding-top: 0.25em;
+  padding-left: 0.55em;
 }
 
 .MapStationButton {
   vertical-align: middle;
-  padding-left: 0.1em;
-  margin-bottom: 0.3em;
-  width: 2em;
-  height: 1.7em;
+  padding-left: 0.4em;
+  padding-right: 0.4em;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+  width: 2.5em;
+  height: 2.1em;
 }
 
 .MapCallButton {
-  vertical-align: middle;
-  margin-left: 0.7em;
-  padding-bottom: 0.1em;
-  width: 2em;
-  height: 2em;
+  width: 3.5em;
+  height: 3.5em;
 }
 
 .RefreshButton {
@@ -115,20 +115,33 @@ hr.Spacer {
 
 #PageHeader {
   background-color: #DDDDDD;
-  padding-left: 0.3em;
-  padding-right: 0.3em;
-  padding-top: 0.4em;
-  box-shadow: 0 0.2em 0.2em #999999;
-  width: 91%;
+  box-shadow: 0 0 0.4em 0.15em #999999;
   position: fixed;
   z-index: 99;
   top: 0;
+  left: 0;
+  right: 0;
+}
+
+#MapCallFooter {
+  background-color: #DDDDDD;
+  padding-left: 0.5em;
+  padding-right: 0.6em;
+  padding-top: 0.3em;
+  box-shadow: 0 0 0.4em 0.15em #999999;
+  width: 3.3em;
+  height: 4em;
+  position: fixed;
+  z-index: 99;
+  bottom: 0;
+  right: 0;
 }
 
 #UnitInput {
+  vertical-align: sub;
   background-color: #DDDDDD;
-  margin-top: 0.2em;
-  margin-bottom: 0.5em;
+  font-size: 110%;
+  font-weight: bold;
 }
 
 div.Call {
