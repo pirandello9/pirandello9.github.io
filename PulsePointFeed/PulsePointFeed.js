@@ -616,8 +616,8 @@ function awaitAndMapCallForUnit2()
 	}
 	
 	animateRefresh(false);
-	if (gDivCurrCall)
-		//window.location.href = gstrCurrCallMapUrl;
-		window.location.href = getMapUrl("San Jose Fire Department Station 34");	//############## FOR TESTING
+	//if (gDivCurrCall)
+	//	window.location.href = gstrCurrCallMapUrl;
+	window.location.href = getMapUrl("San Jose Fire Department Station 34");	//############## FOR TESTING
 }
 
