@@ -299,7 +299,7 @@ function addSpacer(div)
 }
 
 
-function refreshData()
+function refreshData(fcnAfterComplete)
 {
 	animateRefresh(true);
 	console.log("Requesting pulsepoint data...");
@@ -381,6 +381,7 @@ function refreshData()
 	else
 	{
 		var objReq = new XMLHttpRequest();
+		objReq.fcnAfterComplete = fcnAfterComplete;
 		objReq.addEventListener("load", updateWithReceivedData);
 		//objReq.open("GET", "https://script.google.com/macros/s/AKfycbwAN-d88IGiGX6t7ddHp2pidzzfco6JjWKawzp-hAhrEHwxMI5J/exec");
 		//objReq.open("GET", "http://localhost:4000/");
@@ -415,6 +416,9 @@ function updateWithReceivedData(strResponseJson)
 	}
 	
 	scrollToCurrCall();
+	
+	if (this.fcnAfterComplete)
+		this.fcnAfterComplete();
 }
 
 
@@ -555,9 +559,37 @@ function unitInput_saveValue(eltUnitInput, strVal, bRequireValidValue)
 // Do synchronous requests in order to "connect" redirect/popup to user's click (and thus avoid redirect/popup-blocking)
 function awaitAndMapCallForUnit()
 {
-	animateRefresh(true);
-	setTimeout(awaitAndMapCallForUnit2, 100);
+	refreshData(awaitAndMapCallForUnit3);
+	
+	//animateRefresh(true);
+	//setTimeout(awaitAndMapCallForUnit2, 100);
 }
+function awaitAndMapCallForUnit3()
+{
+	objReq = new XMLHttpRequest();
+	objReq.open("GET", kstrServerUrl + "wait?m=4000", false);  // 'false' makes the request synchronous
+	objReq.send();
+	refreshData(awaitAndMapCallForUnit4);
+}
+function awaitAndMapCallForUnit4()
+{
+	objReq = new XMLHttpRequest();
+	objReq.open("GET", kstrServerUrl + "wait?m=4000", false);  // 'false' makes the request synchronous
+	objReq.send();
+	refreshData(awaitAndMapCallForUnit5);
+}
+function awaitAndMapCallForUnit5()
+{
+	objReq = new XMLHttpRequest();
+	objReq.open("GET", kstrServerUrl + "wait?m=4000", false);  // 'false' makes the request synchronous
+	objReq.send();
+	refreshData(awaitAndMapCallForUnit6);
+}
+function awaitAndMapCallForUnit6()
+{
+	window.location.href = getMapUrl("San Jose Fire Department Station 34");
+}
+
 
 function awaitAndMapCallForUnit2()
 {
