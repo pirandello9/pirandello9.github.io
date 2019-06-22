@@ -283,7 +283,7 @@ function scrollToCurrCall()
 	// Adjust for header
 	var nPageHeaderHeight = document.getElementById("PageHeader").offsetHeight;
 	//if (window.scrollY < nPageHeaderHeight)
-		window.scroll(0, Math.max(window.scrollY - nPageHeaderHeight, 0));
+		window.scroll(0, Math.max(window.scrollY - nPageHeaderHeight - 20, 0));
 }
 
 
