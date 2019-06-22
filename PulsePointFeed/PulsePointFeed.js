@@ -20,12 +20,6 @@ function init()
 	//eltUnitInput.addEventListener("keydown", function(evt) { unitInput_onKeyDown(eltUnitInput, evt); })
 	//#############
 
-	//################# TESTING #################
-	document.getElementById("ModalOverlay").style.display = "flex";
-	document.getElementById("WaitCallModal").style.display = "block";
-	document.getElementById("Calls").style.position = "fixed";
-	//################# TESTING #################
-
 	var strCurrUnit = localStorage.getItem("currUnit");
 	if (strCurrUnit)
 	{
@@ -566,9 +560,9 @@ function unitInput_saveValue(eltUnitInput, strVal, bRequireValidValue)
 function awaitAndMapCallForUnit()
 {
 	//refreshData(awaitAndMapCallForUnit3);
-	document.getElementById("ModalOverlay").style.display = "block";
+	document.getElementById("ModalOverlay").style.display = "flex";
 	document.getElementById("WaitCallModal").style.display = "block";
-	document.getElementById("Calls").style.position = "fixed";
+	//document.getElementById("Calls").style.position = "fixed";
 	
 	animateRefresh(true);
 	setTimeout(awaitAndMapCallForUnit2, 100);
@@ -596,6 +590,8 @@ function awaitAndMapCallForUnit5()
 }
 function awaitAndMapCallForUnit6()
 {
+	document.getElementById("ModalOverlay").style.display = "none";
+	document.getElementById("WaitCallModal").style.display = "none";
 	window.location.href = getMapUrl("San Jose Fire Department Station 34");
 }
 

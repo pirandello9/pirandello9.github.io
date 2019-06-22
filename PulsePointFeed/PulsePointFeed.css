@@ -23,6 +23,8 @@ a {
 
 .ModalDialog {
   touch-action: none;
+  display: none;
+  position: fixed;
   background-color: white;
   border: 1px solid gray;
   border-radius: 5px;
@@ -33,13 +35,11 @@ a {
   padding-bottom: 0.3em;
   padding-left: 1.2em;
   padding-right: 1.2em;
-  
-  /* change position to fixed if you want to prevent the dialog from scrolling away, and center it */
-  //position: fixed;
 }
 
 .ModalOverlay {
   touch-action: none;
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -47,7 +47,6 @@ a {
   width: 100%;
   z-index: 100;
   background-color: rgba(0,0,0,0.3);
-  display: flex;
   align-items: flex-start;
   justify-content: center;
 }
