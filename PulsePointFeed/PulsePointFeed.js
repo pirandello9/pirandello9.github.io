@@ -15,6 +15,11 @@ var gstrCurrCallMapUrl = null;
 
 function init()
 {
+	//############### FOR TESTING... ################
+	window.location.assign(getMapUrl("San Jose Fire Department Station 34"));
+	//############### FOR TESTING... ################
+	
+	
 	var objUrlParams = new URLSearchParams(window.location.search);
 	var bMapToCurrCall = objUrlParams.get("mapcall");
 	
@@ -321,7 +326,7 @@ function refreshData(fcnAfterComplete)
 	
 	var TESTING = false;
 	
-	//############### FOR TESTING... ###################
+	//############### FOR TESTING... ################
 	if (TESTING)
 	{
 		var objResponse =

@@ -81,8 +81,9 @@ a {
 
 .CallTypeIcon {
   vertical-align: middle;
+  position: relative;
+  bottom: 0.1em;
   padding-right: 0.1em;
-  //padding-bottom: 0.1em;
   width: 1.9em;
   height: 1.9em;
 }
