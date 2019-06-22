@@ -23,7 +23,9 @@
   
   <body onload="init()">
     
-    <dialog id="WaitCallModal" class="ModalDialog" open="1">Awaiting call info...</dialog>
+    <div id="ModalOverlay" class="ModalOverlay">
+      <div id="WaitCallModal" class="ModalDialog">Awaiting <span id="WaitCallUnit"></span> call info...</div>
+    </div>
     
     <div id="PageHeader" class="LeftRight">
       <div>
