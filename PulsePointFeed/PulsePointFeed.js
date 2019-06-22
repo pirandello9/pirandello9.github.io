@@ -50,11 +50,13 @@ function init()
 	setInterval(updateTimes, 10000);  // once every 10 secs
 	
 	// Header is floating fixed, so pad the rest of the content (Calls) down to just below header
-	var divPageHeader = document.getElementById("PageHeader");
-	//var divCalls = document.getElementById("Calls");
-	//divCalls.style.paddingTop = divPageHeader.offsetHeight + "px";
-	var divHeadingSpacer = document.getElementById("HeadingSpacer");
-	divHeadingSpacer.style.height = divPageHeader.offsetHeight + "px";
+	var nPageHeaderHeight = document.getElementById("PageHeader").offsetHeight;
+	var divCalls = document.getElementById("Calls");
+	divCalls.style.paddingTop = nPageHeaderHeight + "px";
+	divCalls.style.marginTop = "-" + nPageHeaderHeight + "px";
+	
+	//var divHeadingSpacer = document.getElementById("HeadingSpacer");
+	//divHeadingSpacer.style.height = nPageHeaderHeight + "px";
 	
 	if (bMapToCurrCall)
 	{
@@ -279,9 +281,9 @@ function scrollToCurrCall()
 	gDivCurrCall.scrollIntoView({behavior: "smooth", block: "start", inline: "start"});
 	
 	// Adjust for header
-	var nPageHeaderHeight = document.getElementById("PageHeader").offsetHeight;
-	if (window.scrollY < nPageHeaderHeight)
-		window.scroll(0, window.scrollY - nPageHeaderHeight);
+	//var nPageHeaderHeight = document.getElementById("PageHeader").offsetHeight;
+	//if (window.scrollY < nPageHeaderHeight)
+	//	window.scroll(0, window.scrollY - nPageHeaderHeight);
 }
 
 
