@@ -594,8 +594,8 @@ function awaitAndMapCallForUnit6()
 function awaitAndMapCallForUnit2()
 {
   const knWaitBetweenRequestsMillisec = 5000;   // 5 seconds
-  const knTimeoutMillisec = 60000;              // 60 seconds
-  //const knTimeoutMillisec = 10000;              // 10 seconds #################### FOR TESTING
+  //const knTimeoutMillisec = 60000;              // 60 seconds
+  const knTimeoutMillisec = 30000;              // 30 seconds #################### FOR TESTING
   const kstrWaitUrl = kstrServerUrl + "wait?m=" + knWaitBetweenRequestsMillisec;
   
   var nTimeoutTime = (new Date()).getTime() + knTimeoutMillisec;
@@ -617,6 +617,7 @@ function awaitAndMapCallForUnit2()
 	
 	animateRefresh(false);
 	if (gDivCurrCall)
-		window.location.href = gstrCurrCallMapUrl;
+		//window.location.href = gstrCurrCallMapUrl;
+		window.location.href = getMapUrl("San Jose Fire Department Station 34");	//############## FOR TESTING
 }
 
