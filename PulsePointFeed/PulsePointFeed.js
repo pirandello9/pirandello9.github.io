@@ -47,8 +47,10 @@ function init()
 	var divCalls = document.getElementById("Calls");
 	divCalls.style.paddingTop = divPageHeader.offsetHeight + "px";
 	
-	//refreshData();
-	refreshData(bMapToCurrCall? awaitAndMapCallForUnit : null);
+	if (bMapToCurrCall)
+		awaitAndMapCallForUnit();
+	else
+		refreshData();
 }
 
 
