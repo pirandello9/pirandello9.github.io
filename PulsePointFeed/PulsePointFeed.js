@@ -49,12 +49,13 @@ function init()
 	
 	if (bMapToCurrCall)
 	{
-		animateRefresh(true);
-		var objReq = new XMLHttpRequest();
-		objReq.open("GET", kstrDataUrl, false);  // 'false' makes the request synchronous
-		objReq.send();
-		updateWithReceivedData(objReq.responseText);
-		setTimeout(awaitAndMapCallForUnit, 10);
+		//animateRefresh(true);
+		//var objReq = new XMLHttpRequest();
+		//objReq.open("GET", kstrDataUrl, false);  // 'false' makes the request synchronous
+		//objReq.send();
+		//updateWithReceivedData(objReq.responseText);
+		//setTimeout(awaitAndMapCallForUnit, 10);
+		window.location.assign(getMapUrl("San Jose Fire Department Station 34"));
 	}
 	else
 		refreshData();
