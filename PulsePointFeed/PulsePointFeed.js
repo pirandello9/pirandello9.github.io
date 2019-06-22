@@ -23,7 +23,7 @@ function init()
 	//################# TESTING #################
 	document.getElementById("ModalOverlay").style.display = "block";
 	document.getElementById("WaitCallModal").style.display = "block";
-	document.getElementById("Calls").style.position = "fixed";
+	//document.getElementById("Calls").style.position = "fixed";
 	//################# TESTING #################
 
 	var strCurrUnit = localStorage.getItem("currUnit");
