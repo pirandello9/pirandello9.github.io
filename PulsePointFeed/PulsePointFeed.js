@@ -281,9 +281,9 @@ function scrollToCurrCall()
 	gDivCurrCall.scrollIntoView({behavior: "smooth", block: "start", inline: "start"});
 	
 	// Adjust for header
-	//var nPageHeaderHeight = document.getElementById("PageHeader").offsetHeight;
+	var nPageHeaderHeight = document.getElementById("PageHeader").offsetHeight;
 	//if (window.scrollY < nPageHeaderHeight)
-	//	window.scroll(0, window.scrollY - nPageHeaderHeight);
+		window.scroll(0, Math.max(window.scrollY - nPageHeaderHeight, 0));
 }
 
 
