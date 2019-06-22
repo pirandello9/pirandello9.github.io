@@ -563,7 +563,7 @@ function awaitAndMapCallForUnit()
 	showModal("WaitCallModal");
 	
 	animateRefresh(true);
-	setTimeout(awaitAndMapCallForUnit2, 100);
+	setTimeout(awaitAndMapCallForUnit2, 10);
 }
 
 
@@ -596,7 +596,7 @@ function awaitAndMapCallForUnit2()
 	//	window.location.href = gstrCurrCallMapUrl;
 	window.location.href = getMapUrl("San Jose Fire Department Station 34");	//############## FOR TESTING
 	
-	setTimeout(function() { hideModal("WaitCallModal"); }, 100);
+	setTimeout(function() { hideModal("WaitCallModal"); }, 10);
 }
 
 
