@@ -197,7 +197,7 @@ function updatePage()
 		
 		var bNoUnits = !strUnits;
 		if (bNoUnits)
-			strUnits = "???";
+			strUnits = '<span class="EnRoute">???</span>';
 		
 		var strUnitsEtc = '<span class="Units">' + strUnits + '</span>';
 		if (objIncident.firstDue)
