@@ -51,8 +51,10 @@ function init()
 	
 	// Header is floating fixed, so pad the rest of the content (Calls) down to just below header
 	var divPageHeader = document.getElementById("PageHeader");
-	var divCalls = document.getElementById("Calls");
-	divCalls.style.paddingTop = divPageHeader.offsetHeight + "px";
+	//var divCalls = document.getElementById("Calls");
+	//divCalls.style.paddingTop = divPageHeader.offsetHeight + "px";
+	var divHeadingSpacer = document.getElementById("HeadingSpacer");
+	divHeadingSpacer.style.height = divPageHeader.offsetHeight + "px";
 	
 	if (bMapToCurrCall)
 	{
