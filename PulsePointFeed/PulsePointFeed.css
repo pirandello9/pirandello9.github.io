@@ -22,7 +22,6 @@ a {
 }
 
 .ModalDialog {
-  touch-action: none;
   display: none;
   position: fixed;
   background-color: white;
@@ -38,9 +37,6 @@ a {
 }
 
 .ModalOverlay {
-  touch-action: none;
-  -webkit-overflow-scrolling: touch;
-  overflow: scroll;
   display: none;
   position: fixed;
   top: 0;

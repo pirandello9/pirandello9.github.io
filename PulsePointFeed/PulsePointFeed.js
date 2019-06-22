@@ -560,9 +560,7 @@ function unitInput_saveValue(eltUnitInput, strVal, bRequireValidValue)
 function awaitAndMapCallForUnit()
 {
 	//refreshData(awaitAndMapCallForUnit3);
-	document.getElementById("ModalOverlay").style.display = "flex";
-	document.getElementById("WaitCallModal").style.display = "block";
-	//document.getElementById("Calls").style.position = "fixed";
+	showModal("WaitCallModal");
 	
 	animateRefresh(true);
 	setTimeout(awaitAndMapCallForUnit2, 100);
@@ -590,9 +588,21 @@ function awaitAndMapCallForUnit5()
 }
 function awaitAndMapCallForUnit6()
 {
-	document.getElementById("ModalOverlay").style.display = "none";
-	document.getElementById("WaitCallModal").style.display = "none";
 	window.location.href = getMapUrl("San Jose Fire Department Station 34");
+}
+
+
+function showModal(strModalID)
+{
+	document.getElementById("ModalOverlay").style.display = "flex";
+	document.getElementById(strModalID).style.display = "block";
+
+}
+
+function hideModal(strModalID)
+{
+	document.getElementById("ModalOverlay").style.display = "none";
+	document.getElementById(strModalID).style.display = "none";
 }
 
 
@@ -600,7 +610,7 @@ function awaitAndMapCallForUnit2()
 {
   const knWaitBetweenRequestsMillisec = 5000;   // 5 seconds
   //const knTimeoutMillisec = 60000;              // 60 seconds
-  const knTimeoutMillisec = 30000;              // 30 seconds #################### FOR TESTING
+  const knTimeoutMillisec = 20000;              // 20 seconds #################### FOR TESTING
   const kstrWaitUrl = kstrServerUrl + "wait?m=" + knWaitBetweenRequestsMillisec;
   
   var nTimeoutTime = (new Date()).getTime() + knTimeoutMillisec;
@@ -624,5 +634,7 @@ function awaitAndMapCallForUnit2()
 	//if (gDivCurrCall)
 	//	window.location.href = gstrCurrCallMapUrl;
 	window.location.href = getMapUrl("San Jose Fire Department Station 34");	//############## FOR TESTING
+	
+	setTimeout(function() { hideModal("WaitCallModal"); }, 100);
 }
 
