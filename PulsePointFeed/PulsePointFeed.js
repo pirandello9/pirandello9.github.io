@@ -16,16 +16,6 @@ var gstrCurrCallMapUrl = null;
 
 function init()
 {
-	//############### FOR TESTING... ################
-	//window.location.assign(getMapUrl("San Jose Fire Department Station 34"));
-	//window.location.assign("comgooglemapsurl://www.google.com/maps/dir/?api=1&destination=700+Hampshire+St&travelmode=driving");
-	//window.location.assign("comgooglemaps://?daddr=700+Hampshire+St&directionsmode=driving");
-	//############### FOR TESTING... ################
-	
-	
-	var objUrlParams = new URLSearchParams(window.location.search);
-	var bMapToCurrCall = objUrlParams.get("mapcall");
-	
 	//#############
 	//var eltUnitInput = document.getElementById("UnitInput");
 	//eltUnitInput.addEventListener("keydown", function(evt) { unitInput_onKeyDown(eltUnitInput, evt); })
@@ -54,25 +44,9 @@ function init()
 	
 	// Header is floating fixed, so pad the rest of the content (Calls) down to just below header
 	var nPageHeaderHeight = document.getElementById("PageHeader").offsetHeight;
-	//var divCalls = document.getElementById("Calls");
-	//divCalls.style.paddingTop = (nPageHeaderHeight + 20) + "px";
-	//divCalls.style.marginTop = "-" + nPageHeaderHeight + "px";
+	document.getElementById("HeadingSpacer").style.height = nPageHeaderHeight + "px";
 	
-	var divHeadingSpacer = document.getElementById("HeadingSpacer");
-	divHeadingSpacer.style.height = nPageHeaderHeight + "px";
-	
-	if (bMapToCurrCall)
-	{
-		//animateRefresh(true);
-		//var objReq = new XMLHttpRequest();
-		//objReq.open("GET", kstrDataUrl, false);  // 'false' makes the request synchronous
-		//objReq.send();
-		//updateWithReceivedData(objReq.responseText);
-		//setTimeout(awaitAndMapCallForUnit, 10);
-		window.location.assign(getMapUrl("San Jose Fire Department Station 34"));
-	}
-	else
-		refreshData();
+	refreshData();
 }
 
 
@@ -303,8 +277,7 @@ function scrollToCurrCall()
 	
 	// Adjust for header
 	var nPageHeaderHeight = document.getElementById("PageHeader").offsetHeight;
-	//if (window.scrollY < nPageHeaderHeight)
-		window.scroll(0, Math.max(window.scrollY - nPageHeaderHeight - 15, 0));
+	window.scroll(0, Math.max(window.scrollY - nPageHeaderHeight - 15, 0));
 }
 
 
@@ -314,7 +287,7 @@ function getMapUrl(strDest)
 	const kStrAppDirectionsUrl = "comgooglemapsurl://www.google.com/maps/dir/?api=1&destination=%s&travelmode=driving";
 	
 	//var strUrl = gbOnMobile? kStrAppDirectionsUrl : kStrDirectionsUrl;
-	var strUrl = kStrDirectionsUrl;		//#####################################
+	var strUrl = kStrDirectionsUrl;		//############
 	return strUrl.replace("%s", strDest);
 }
 
@@ -358,7 +331,7 @@ function refreshData(fcnAfterComplete)
 	console.log("Requesting pulsepoint data...");
 	
 	
-	var TESTING = true;
+	var TESTING = false;
 	
 	//############### FOR TESTING... ################
 	if (TESTING)
@@ -623,8 +596,8 @@ function awaitAndMapCallForUnit()
 function awaitAndMapCallForUnit2()
 {
   const knWaitBetweenRequestsMillisec = 5000;   // 5 seconds
-  //const knTimeoutMillisec = 60000;              // 60 seconds
-  const knTimeoutMillisec = 20000;              // 20 seconds #################### FOR TESTING
+  const knTimeoutMillisec = 60000;              // 60 seconds
+  //const knTimeoutMillisec = 20000;              // 20 seconds #################### FOR TESTING
   const kstrWaitUrl = kstrServerUrl + "wait?m=" + knWaitBetweenRequestsMillisec;
   
   var nTimeoutTime = (new Date()).getTime() + knTimeoutMillisec;
@@ -645,9 +618,8 @@ function awaitAndMapCallForUnit2()
 	}
 	
 	animateRefresh(false);
-	//if (gDivCurrCall)
-	//	window.location.href = gstrCurrCallMapUrl;
-	window.location.href = getMapUrl("San Jose Fire Department Station 34");	//############## FOR TESTING
+	if (gDivCurrCall)
+		window.location.href = gstrCurrCallMapUrl;
 	
 	setTimeout(function() { hideModal("WaitCallModal"); }, 10);
 }
