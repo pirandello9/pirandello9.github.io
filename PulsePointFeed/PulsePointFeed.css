@@ -6,7 +6,6 @@ html, body {
   font-size: 104%;
   padding: 0;
   border: 0 none;
-  margin: 0;
 }
 
 h1, h1 {
@@ -98,7 +97,7 @@ a {
 }
 
 .RelTime {
-  padding-top: 0.2em;
+  padding-top: 0.3em;
   font-size: 98%;
 }
 
@@ -159,6 +158,9 @@ div.Call div:first-child {
   //padding-left: 0;
 }
 
+div.CallType {
+  margin-left: -0.25em;
+}
 
 div.UnitsEtc {
   padding-top: 0.1em;

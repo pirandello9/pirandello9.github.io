@@ -213,7 +213,7 @@ function updatePage()
 		var divCall = addDiv(divCalls, "Call");
 		
 		var divTypeAndTime = addDiv(divCall, "LeftRight");
-		var divType = addDiv(divTypeAndTime, "Deemphasize", strCallType);
+		var divType = addDiv(divTypeAndTime, "CallType Deemphasize", strCallType);
 		var imgType = document.createElement("img");
 		imgType.className = "CallTypeIcon";
 		imgType.src = strTypeImageUrl;
