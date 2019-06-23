@@ -66,8 +66,8 @@ a {
 }
 
 .MapCallButton {
-  width: 3.5em;
-  height: 3.5em;
+  width: 4.1em;
+  height: 4.1em;
 }
 
 .RefreshButton {
@@ -129,8 +129,8 @@ hr.Spacer {
   padding-right: 0.6em;
   padding-top: 0.3em;
   box-shadow: 0 0 0.4em 0.15em #999999;
-  width: 3.3em;
-  height: 4em;
+  width: 3.9em;
+  height: 4.5em;
   position: fixed;
   z-index: 99;
   bottom: 0;
