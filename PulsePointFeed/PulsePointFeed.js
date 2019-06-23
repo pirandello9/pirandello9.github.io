@@ -200,7 +200,8 @@ function updatePage()
 				if (objUnit.status === "DP")
 					strUnit = '<span class="EnRoute">' + strUnit + '</span>';
 				else if (objUnit.status === "TR")
-					strUnit += '&ctdot;<img class="TransportIcon" src="PulsePointFeed/TransportIcon.png" />'
+					//strUnit += '&ctdot;<img class="TransportIcon" src="PulsePointFeed/TransportIcon.png" />'
+					strUnit += '<img class="TransportIcon" src="PulsePointFeed/TransportIcon.png" />'
 				
 				strUnits += strUnit
 			}
