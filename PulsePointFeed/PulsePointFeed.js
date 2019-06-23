@@ -5,6 +5,7 @@ const kstrDataUrl = kstrServerUrl;
 
 // Global vars
 var gbOnMobile = isOnMobile();
+var gnUpdateTimerID = null;
 var gStrLastJson = "";
 var gArrAlerts = [];
 var gArrActiveCalls = [];
@@ -47,7 +48,9 @@ function init()
 	}
 	
 	updateTimes();
-	setInterval(updateTimes, 10000);  // once every 10 secs
+	
+	document.addEventListener("visibilitychange", onVisibilityChange, false);
+	onVisibilityChange();
 	
 	// Header is floating fixed, so pad the rest of the content (Calls) down to just below header
 	var nPageHeaderHeight = document.getElementById("PageHeader").offsetHeight;
@@ -85,6 +88,23 @@ function isOnMobile()
 		return true;
 	
 	return false;
+}
+
+
+function onVisibilityChange()
+{
+	// Only do times updates when webpage is in foreground
+	if (document.visibilityState === "visible")
+	{
+		updateTimes();
+		if (!gnUpdateTimerID)
+			gnUpdateTimerID = setInterval(updateTimes, 10000);  // once every 10 secs
+	}
+	else if (gnUpdateTimerID)
+	{
+		clearInterval(gnUpdateTimerID);
+		gnUpdateTimerID = null;
+	}
 }
 
 
