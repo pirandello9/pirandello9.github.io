@@ -463,7 +463,7 @@ function unitInput_onFocus(eltUnitInput)
 	var strCurrVal = eltUnitInput.value;
 	var nFrom = 0;
 	var nTo = strCurrVal.length;
-	var match = /^([A-Z]+)\d*$/i.exec(strCurrVal);
+	var match = /^([A-Z]+)/i.exec(strCurrVal);
 	if (match)
 		nFrom = match[1].length;
 	
@@ -557,7 +557,7 @@ function unitInput_saveValue(eltUnitInput, strVal, bRequireValidValue)
 	var strUnitNumber = null;
 	
 	//######## EVENTUALLY MORE VALIDATION? (E.G. RESTRICT TO [ETUS]\d{1,3} and PREVENT LEADING ZERO AFTER LETTER ???)
-	var match = /^[A-Z]{1,3}(\d{0,3})$/.exec(strVal);
+	var match = /^[A-Z]{1,3}(\d{0,3})[A-Z]?$/.exec(strVal);
 	if (match)
 		[strCurrUnit, strUnitNumber] = match;
 	else if (bRequireValidValue)
